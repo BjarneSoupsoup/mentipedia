@@ -1,0 +1,7 @@
+.backgroundPaper {
+    background-image: url('/pictures/tile_background_mentipedia.png');
+    background-repeat: repeat;
+    background-size: 60em 60em;
+    background-position: center top;
+    background-attachment: fixed;
+}
