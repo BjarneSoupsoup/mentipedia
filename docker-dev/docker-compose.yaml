@@ -1,15 +1,52 @@
+name: mentipedia
+
 services:
   nextjs:
     image: node:24.0.1-bookworm-slim
+    depends_on:
+      - dbpopulator
     networks:
       - mentipedia_net
     volumes:
-      - "/home/jorge/mentipedia/mentipedia-front:/mentipedia"
+      - "./nextjs:/mentipedia"
     working_dir: /mentipedia
     command: yarn next dev
     ports:
       - "10.172.172.1:10002:3000"
+  
+  postgresdb:
+    image: postgres:17.5-alpine3.20
+    networks:
+      - mentipedia_net
+    volumes:
+      - ../storage/pgsql_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mentipedia_pgsql_test_dev -d mentipedia"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      # For dev purposes
+      - POSTGRES_USER=mentipedia_pgsql_test_dev
+      - POSTGRES_PASSWORD=mentipedia
+      - POSTGRES_DB=mentipedia
+  # for monitoring
+  adminer:
+    image: adminer:5.1.0
+    ports:
+      - "10.172.172.1:10003:8080"
+    networks:
+      - mentipedia_net
 
+  dbpopulator:
+    depends_on:
+      - postgresdb
+    build:
+      context: ../dbpopulator
+    # For testing purposes
+    command: ["--pgsql-connection-str", "postgresql://mentipedia_pgsql_test_dev:mentipedia@postgresdb:5432/mentipedia", "--run-seeder"]
+    networks:
+      - mentipedia_net
 
 networks:
   mentipedia_net:
