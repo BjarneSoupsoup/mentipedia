@@ -74,7 +74,6 @@ def seed_db(db_cursor, db_con):
         number_of_additional_mentiras = fake.pyint(MENTIRAS_MIN, MENTIRAS_MAX)
         if mentiroso["nombre_completo"] in MENTIRAS_OVERRIDE_COUNT.keys():
             number_of_additional_mentiras += MENTIRAS_OVERRIDE_COUNT[mentiroso["nombre_completo"]]["mentiras_offset"]
-        print(F"Mentiroso: {mentiroso["nombre_completo"]} mentiroso_id = {mentiroso_id}")
         for _ in range(0, number_of_additional_mentiras):
             db_cursor.execute("""
                 INSERT INTO Mentiras (mentiroso_id, fecha, mentira, contexto) VALUES (%s, %s, %s, %s)
