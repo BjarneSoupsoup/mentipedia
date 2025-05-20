@@ -12,7 +12,7 @@ services:
     working_dir: /mentipedia
     command: yarn next dev
     ports:
-      - "10.172.172.1:10002:3000"
+      - "10001:3000"
   
   postgresdb:
     image: postgres:17.5-alpine3.20
@@ -34,7 +34,7 @@ services:
   adminer:
     image: adminer:5.1.0
     ports:
-      - "10.172.172.1:10003:8080"
+      - "10002:8080"
     networks:
       - mentipedia_net
 
