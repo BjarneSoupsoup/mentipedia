@@ -3,7 +3,7 @@ import Image from "next/image";
 import Form from "next/form";
 
 export default function Navbar() {
-    return <div className="border-b-3 flex flex-row justify-start items-center">
+    return <nav className="border-b-3 flex flex-row justify-start items-center">
         <div className="flex flex-row justify-items-start items-center grow">
             <Link className="ml-[15%] pb-2 pt-2 underline text-sm text-blue-700" href="/altaMentirologo">
                 Date de alta como mentirólogo
@@ -15,5 +15,5 @@ export default function Navbar() {
             </button>
             <input className="md:w-1/4 w-3/4 text-sm ms-0.5 border-1 ps-2" name="mentiraQuery" placeholder="Buscar mentira"/>
         </Form>
-    </div>
+    </nav>
 }

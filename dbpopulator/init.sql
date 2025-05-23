@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS Mentirosos (
     id                      SERIAL          PRIMARY KEY,
     nombre_completo         VARCHAR(200)    UNIQUE NOT NULL,
-    alias                   VARCHAR(200)    UNIQUE
+    alias                   VARCHAR(200)    UNIQUE,
+    retrato_s3_key          VARCHAR(500)    NOT NULL
 );
 CREATE INDEX IF NOT EXISTS mentiroso_id ON Mentirosos USING HASH(id);
 
@@ -62,3 +63,14 @@ $make_mentira_search_vector_on_mentiroso_update$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE TRIGGER make_mentira_search_vector_on_mentiroso_update_trigger AFTER UPDATE ON Mentirosos
     FOR EACH ROW EXECUTE FUNCTION make_mentira_search_vector_on_mentiroso_update();
+
+
+-- Materialized view for faster retrieval of information for the landing page
+
+CREATE MATERIALIZED VIEW IF NOT EXISTS TopMentirosos AS
+    SELECT nombre_completo, alias, retrato_s3_key, COUNT(ma.id) AS num_of_mentiras
+    FROM Mentirosos mo
+    JOIN Mentiras ma ON mo.id = ma.mentiroso_id
+    GROUP BY (mo.id, nombre_completo, alias, retrato_s3_key)
+    ORDER BY num_of_mentiras DESC
+    LIMIT 10;

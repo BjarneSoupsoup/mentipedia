@@ -2,6 +2,7 @@ name: mentipedia
 
 services:
   nextjs:
+    user: ${UID}:${GID}
     image: node:24.0.1-bookworm-slim
     depends_on:
       - dbpopulator
@@ -9,12 +10,20 @@ services:
       - mentipedia_net
     volumes:
       - "../nextjs:/mentipedia"
+    environment:
+      - PGUSER=mentipedia_pgsql_test_dev
+      - PGPASSWORD=mentipedia
+      - PGHOST=postgresdb
+      - PGPORT=5432
+      - PGDATABASE=mentipedia
+      - S3_ORIGIN=http://localhost:10004
     working_dir: /mentipedia
     command: yarn next dev
     ports:
       - "10001:3000"
   
   postgresdb:
+    user: ${UID}:${GID}
     image: postgres:17.5-alpine3.20
     networks:
       - mentipedia_net
@@ -22,7 +31,7 @@ services:
       - ../storage/pgsql_db:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U mentipedia_pgsql_test_dev -d mentipedia"]
-      interval: 10s
+      interval: 1s
       timeout: 5s
       retries: 5
     environment:
@@ -32,6 +41,7 @@ services:
       - POSTGRES_DB=mentipedia
   # for monitoring
   adminer:
+    user: ${UID}:${GID}
     image: adminer:5.1.0
     ports:
       - "10002:8080"
@@ -39,14 +49,44 @@ services:
       - mentipedia_net
 
   dbpopulator:
+    user: ${UID}:${GID}    
     depends_on:
-      - postgresdb
+      postgresdb:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
     build:
       context: ../dbpopulator
     # For testing purposes
-    command: ["--pgsql-connection-str", "postgresql://mentipedia_pgsql_test_dev:mentipedia@postgresdb:5432/mentipedia", "--run-seeder"]
+    command: [
+      "--pgsql-connection-str", "postgresql://mentipedia_pgsql_test_dev:mentipedia@postgresdb:5432/mentipedia", "--run-seeder",
+      "--minio-host", "minio", "--minio-access-key", "mentipedia-minio", "--minio-secret-key", "mentipedia"
+    ]
     networks:
       - mentipedia_net
+
+  minio:
+    user: ${UID}:${GID}
+    image: minio/minio:RELEASE.2025-04-03T14-56-28Z
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+    command: server /data --console-address ":9001"
+    networks:
+      - mentipedia_net
+    ports:
+      # Expose the console
+      - "10003:9001"
+      # Also expose the public bucket, for direct consumption by the browser
+      - "10004:9000"
+    volumes:
+      - ../storage/s3:/data
+    environment:
+      - MINIO_ROOT_USER=mentipedia-minio
+      - MINIO_ROOT_PASSWORD=mentipedia
+      
 
 networks:
   mentipedia_net:

@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@font-face {
+    font-family: 'TimesNewRoman';
+    src: url("/fonts/times_new_roman.ttf");
+}

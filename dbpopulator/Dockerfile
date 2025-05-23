@@ -8,6 +8,7 @@ ADD requirements.txt .
 
 RUN pip install -r requirements.txt
 
-ADD main.py init.sql seeder.py ./
+ADD main.py init.sql seeder.py lib.py ./
+COPY ./assets ./assets
 
 ENTRYPOINT ["python3", "main.py"]

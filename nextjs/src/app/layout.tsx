@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Head from "next/head";
 import Navbar from "./Navbar";
 
 import "@/styles/globals.css";
@@ -17,9 +16,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <link rel="icon" href="/pictures/favicon.ico" sizes="any" />
-      </Head>
       <body className="backgroundPaper">
         <Navbar/>
         {children}
