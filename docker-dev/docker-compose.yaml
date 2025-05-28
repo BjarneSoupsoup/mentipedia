@@ -5,7 +5,9 @@ services:
     user: ${UID}:${GID}
     image: node:24.0.1-bookworm-slim
     depends_on:
-      - dbpopulator
+      dbpopulator:
+        condition: service_completed_successfully
+
     networks:
       - mentipedia_net
     volumes:
@@ -18,7 +20,7 @@ services:
       - PGDATABASE=mentipedia
       - S3_ORIGIN=http://localhost:10004
     working_dir: /mentipedia
-    command: yarn next dev
+    command: yarn next ${NEXTJS_COMMAND}
     ports:
       - "10001:3000"
   
