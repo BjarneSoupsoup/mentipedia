@@ -1,0 +1,3 @@
+- Portraits should be standarized and already be cropped at square aspect-ratio
+- Create admin page:
+    - Validate new mentiras

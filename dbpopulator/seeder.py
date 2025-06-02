@@ -48,6 +48,8 @@ MENTIROSOS_TOTALES = 50
 MENTIRAS_MIN = 1
 MENTIRAS_MAX = 10
 
+FUENTES_MENTIRA_MAX = 8
+
 MENTIRAS_OVERRIDE_COUNT = {
     "Pedro Sánchez":  {
         "mentiras_offset": 50
@@ -60,6 +62,26 @@ MENTIRAS_OVERRIDE_COUNT = {
     }
 }
 
+# For embedded youtube videos
+DUMMY_VIDEO_HASH = "UbRE9_S5yTE"
+DUMMY_VIDEO_START_TIME = 80
+DUMMY_VIDEO_END_TIME = 88
+
+
+def insert_mentira_query(db_cursor, mentiroso_id, fecha, mentira, contexto, video_hash, video_start_time, video_end_time):
+    db_cursor.execute("""
+        INSERT INTO Mentiras (mentiroso_id, fecha, mentira, contexto, youtube_video_hash, youtube_video_start_time, youtube_video_end_time) 
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        RETURNING ID
+    """, (mentiroso_id, fecha , mentira, contexto, video_hash, video_start_time, video_end_time))
+    return db_cursor.fetchone()
+
+def insert_mentira_fuente_query(db_cursor, mentira_id, texto, hyperlink):
+    db_cursor.execute("""
+        INSERT INTO FuentesMentira (mentira_id, texto, hyperlink) VALUES (%s, %s, %s)
+    """, (mentira_id, texto, hyperlink))
+
+
 def get_mentiroso_portrait_key(mentiroso):
     basename = mentiroso["nombre_completo"] if mentiroso["nombre_completo"] in NOMBRES_MENTIROSOS_BASE else "__placeholder__"
     return F"assets/pictures/portraits/{basename}.webp"
@@ -67,24 +89,31 @@ def get_mentiroso_portrait_key(mentiroso):
 def populate_mentiroso(mentiroso, db_cursor, fake):
     db_cursor.execute("""
         INSERT INTO Mentirosos (nombre_completo, alias, retrato_s3_key) VALUES (%s, %s, %s)
+        RETURNING ID
     """, (mentiroso["nombre_completo"], mentiroso["alias"], get_mentiroso_portrait_key(mentiroso)))
-    db_cursor.execute("SELECT id from Mentirosos WHERE nombre_completo = %s", (mentiroso["nombre_completo"], ))
     mentiroso_id = db_cursor.fetchone()
     if mentiroso["nombre_completo"] in MENTIRAS_BASE.keys():
         for mentira in MENTIRAS_BASE[mentiroso["nombre_completo"]]:
-            db_cursor.execute("""
-                INSERT INTO Mentiras (mentiroso_id, fecha, mentira, contexto) VALUES (%s, %s, %s, %s)
-            """, (mentiroso_id, datetime.strptime(mentira["fecha"], "%d/%m/%Y") , mentira["mentira"], mentira["contexto"]))
+            mentira_id = insert_mentira_query(
+                db_cursor, mentiroso_id, datetime.strptime(mentira["fecha"], "%d/%m/%Y") , mentira["mentira"], mentira["contexto"],
+                DUMMY_VIDEO_HASH, DUMMY_VIDEO_START_TIME, DUMMY_VIDEO_END_TIME
+            )
+            for _ in range(0, fake.pyint(0, FUENTES_MENTIRA_MAX)):
+                insert_mentira_fuente_query(db_cursor, mentira_id, fake.sentence(8, variable_nb_words=True), "https://es.wikipedia.org/wiki/Mentira")
+
     number_of_additional_mentiras = fake.pyint(MENTIRAS_MIN, MENTIRAS_MAX)
     if mentiroso["nombre_completo"] in MENTIRAS_OVERRIDE_COUNT.keys():
         number_of_additional_mentiras += MENTIRAS_OVERRIDE_COUNT[mentiroso["nombre_completo"]]["mentiras_offset"]
     for _ in range(0, number_of_additional_mentiras):
-        db_cursor.execute("""
-            INSERT INTO Mentiras (mentiroso_id, fecha, mentira, contexto) VALUES (%s, %s, %s, %s)
-        """, (
-            mentiroso_id, fake.date_between_dates(date.fromisoformat("1969-01-01"), date.fromisoformat("2025-01-01")),
-            fake.sentence(12, variable_nb_words=True), fake.paragraph(4, variable_nb_sentences=True)
-        ))
+        mentira_id = insert_mentira_query(
+            db_cursor, mentiroso_id, fake.date_between_dates(date.fromisoformat("1969-01-01"), date.fromisoformat("2025-01-01")),
+            fake.sentence(12, variable_nb_words=True), fake.paragraph(4, variable_nb_sentences=True),
+            DUMMY_VIDEO_HASH, DUMMY_VIDEO_START_TIME, DUMMY_VIDEO_END_TIME
+        )
+        for _ in range(0, fake.pyint(0, FUENTES_MENTIRA_MAX)):
+            insert_mentira_fuente_query(db_cursor, mentira_id, fake.sentence(8, variable_nb_words=True), "https://es.wikipedia.org/wiki/Mentira")
+
+
 
 def seed_postgresdb(db_cursor, db_con):
     Faker.seed(3141592)

@@ -1,10 +1,6 @@
 import { MentiraSummaryDAO } from "@/lib/mentiras"
 import { Link } from "@/lib/ui/Link"
-
-function formatDate(date_str: string): string {
-    const date = new Date(date_str)
-    return `${date.getDate()} de ${date.toLocaleString('es-ES', {month: "long"})} de ${date.getFullYear()}`
-}
+import { formatDateLong } from "@/lib/ui/utils"
 
 // Initially renders the top X mentiras, then relies on client data fetching for further data consumption.
 export default async function MentirasFeed({ mentiras, nombreMentiroso } : { mentiras: MentiraSummaryDAO[], nombreMentiroso: string }) {
@@ -18,7 +14,7 @@ export default async function MentirasFeed({ mentiras, nombreMentiroso } : { men
                         <span className="text-xl">&rdquo;</span>
                     </Link>
                 </p>
-                <p className="text-right mr-[10%]">&mdash; { nombreMentiroso }, a  { formatDate(x.fecha) } </p>
+                <p className="text-right mr-[10%]">&mdash; { nombreMentiroso }, a  { formatDateLong(x.fecha) } </p>
             </li>
         }) }</ul>
     )

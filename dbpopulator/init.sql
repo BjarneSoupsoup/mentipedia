@@ -12,22 +12,24 @@ CREATE TABLE IF NOT EXISTS Mentirosos (
     slug                    VARCHAR(200)    UNIQUE NOT NULL,
     retrato_s3_key          VARCHAR(500)    NOT NULL
 );
-CREATE INDEX IF NOT EXISTS mentiroso_id_udx ON Mentirosos USING HASH(id);
 CREATE INDEX IF NOT EXISTS mentiroso_slug_idx ON Mentirosos USING HASH(slug);
 
 
 CREATE TABLE IF NOT EXISTS Mentiras (
-    id                      SERIAL          PRIMARY KEY,
-    mentiroso_id            SERIAL          REFERENCES Mentirosos(id) NOT NULL,
-    slug                    VARCHAR(200)    UNIQUE NOT NULL,
-    fecha                   TIMESTAMPTZ     NOT NULL,
-    mentira                 VARCHAR(10000)  NOT NULL UNIQUE,
-    contexto                VARCHAR(10000)  NOT NULL,
-    search_bag_of_words_vec TSVECTOR        NOT NULL
+    id                          SERIAL          PRIMARY KEY,
+    mentiroso_id                INTEGER         NOT NULL,
+    slug                        VARCHAR(200)    UNIQUE NOT NULL,
+    fecha                       TIMESTAMPTZ     NOT NULL,
+    mentira                     VARCHAR(10000)  NOT NULL,
+    contexto                    VARCHAR(10000)  NOT NULL,
+    search_bag_of_words_vec     TSVECTOR        NOT NULL,
+    youtube_video_hash          VARCHAR(64)     NOT NULL,
+    youtube_video_start_time    INT             NOT NULL,
+    youtube_video_end_time      INT             NOT NULL,
+
+    FOREIGN KEY (mentiroso_id) REFERENCES Mentirosos ON DELETE CASCADE,
+    UNIQUE (id, mentiroso_id)
 );
-
-
-CREATE INDEX IF NOT EXISTS mentira_id_idx ON Mentiras USING HASH(id);
 CREATE INDEX IF NOT EXISTS mentira_mentiroso_id_idx ON Mentiras USING HASH(mentiroso_id);
 CREATE INDEX IF NOT EXISTS mentira_slug_idx ON Mentiras USING HASH(slug);
 CREATE INDEX IF NOT EXISTS mentira_fecha_idx ON Mentiras USING BTREE(fecha);
@@ -121,7 +123,6 @@ CREATE OR REPLACE TRIGGER make_slug_on_mentira_trigger BEFORE INSERT OR UPDATE O
     FOR EACH ROW EXECUTE FUNCTION make_slug_on_mentira();
 
 
-
 -- Materialized view for faster retrieval of information for the landing page
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS TopMentirosos AS
@@ -131,3 +132,15 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS TopMentirosos AS
     GROUP BY (mo.id, mo.slug, nombre_completo, alias, retrato_s3_key)
     ORDER BY num_of_mentiras DESC
     LIMIT 10;
+
+
+CREATE TABLE IF NOT EXISTS FuentesMentira (
+    id                          SERIAL          PRIMARY KEY,
+    mentira_id                  INTEGER         NOT NULL,
+    texto                       VARCHAR(10000)  NOT NULL,
+    hyperlink                   VARCHAR(10000)  NOT NULL,
+
+    FOREIGN KEY (mentira_id) REFERENCES Mentiras ON DELETE CASCADE,
+    UNIQUE (texto, hyperlink)
+);
+CREATE INDEX IF NOT EXISTS fuente_mentira_mentira_id_idx ON FuentesMentira USING HASH(mentira_id);

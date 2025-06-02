@@ -1,3 +1,5 @@
+'use server'
+
 import { Pool, QueryResultRow } from "pg"
 import { MentirosoDAO } from "./mentiroso"
 import { MentiraSummaryDAO } from "./mentiras"
@@ -54,16 +56,34 @@ export async function getMentirosoLandingPageData(mentiroso_slug: string): Promi
 export async function getMentiraData(mentiraSlug: string) {
     const x = await submitQuery(`
         WITH t1 AS (
-            SELECT id, fecha, mentira, contexto FROM Mentiras WHERE slug = $1
+            SELECT id, mentiroso_id, fecha, mentira, contexto, youtube_video_hash, youtube_video_start_time, youtube_video_end_time
+            FROM Mentiras WHERE slug = $1
         ),
         t2 AS (
             SELECT mo.id, nombre_completo, retrato_s3_key, alias FROM Mentirosos mo
             INNER JOIN t1 ON t1.mentiroso_id = mo.id
+        ),
+        t3 AS (
+            SELECT fm.id, fm.texto, fm.hyperlink FROM FuentesMentira fm
+            INNER JOIN t1 ON t1.id = fm.mentira_id
         )
         SELECT json_build_object(
             'mentira'   , (SELECT to_json(t1) FROM t1),
-            'mentiroso' , (SELECT to_json(t2) FROM t2)
+            'mentiroso' , (SELECT to_json(t2) FROM t2),
+            'fuentes'   , (SELECT json_agg(to_json(t3)) FROM t3)
         ) AS json_obj;
     `, [mentiraSlug])
     return x[0].json_obj
+}
+
+// Performs full-text search.
+// Returns the mentira slug, for redirection
+export async function webSearchMentira(mentiraQuery: string) {
+    return [
+        {
+            "mentira": "Nunca dije que me hubiera fumado un porro",
+            "slug": "amet-quis-libero-impedit-molestiae-aliquid-voluptates-omnis",
+            "mentiroso": "Pedro Sánchez"
+        }
+    ]
 }
