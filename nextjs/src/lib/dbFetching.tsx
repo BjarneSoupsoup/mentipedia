@@ -4,6 +4,8 @@ import { Pool, QueryResultRow } from "pg"
 import { MentirosoDAO } from "./mentiroso"
 import { MentiraSummaryDAO } from "./mentiras"
 
+const MAX_MENTIRA_RESULTS_WEBSEARCH_PER_QUERY = 10
+
 // Beware that the pool is never gracefully shut-down. This is because the application is designed
 // to (potentially) run on a serverless architecture. Hence, to avoid dangling connections, timeouts
 // will be (aggressively) handled on the database server side.
@@ -73,17 +75,35 @@ export async function getMentiraData(mentiraSlug: string) {
             'fuentes'   , (SELECT json_agg(to_json(t3)) FROM t3)
         ) AS json_obj;
     `, [mentiraSlug])
-    return x[0].json_obj
+    const jsonResponse = x[0].json_obj
+    if (!jsonResponse.fuentes) {
+        jsonResponse.fuentes = []
+    }
+    return jsonResponse
 }
 
 // Performs full-text search.
-// Returns the mentira slug, for redirection
-export async function webSearchMentira(mentiraQuery: string) {
-    return [
-        {
-            "mentira": "Nunca dije que me hubiera fumado un porro",
-            "slug": "amet-quis-libero-impedit-molestiae-aliquid-voluptates-omnis",
-            "mentiroso": "Pedro Sánchez"
-        }
-    ]
+// Returns the mentira slug, for redirection.
+// minRank is used for fetching results in a paginated fashion
+export async function webSearchMentira(mentiraQuery: string, minRank = 0) {
+    return await submitQuery(`
+        WITH t AS (
+            SELECT websearch_to_tsquery('spanish', $1) AS query
+        )
+        SELECT
+            ma.id as id,
+            ma.mentira,
+            mo.nombre_completo AS mentiroso,
+            mo.retrato_s3_key,
+            ma.fecha,
+            ma.slug,
+            t.query,
+            TS_RANK(ma.search_bag_of_words_vec, t.query) AS searchRank
+        FROM Mentiras ma
+        INNER JOIN Mentirosos mo ON mo.id = ma.mentiroso_id, t
+        WHERE ma.search_bag_of_words_vec @@ t.query
+        ORDER BY searchRank DESC
+        LIMIT $2
+        OFFSET $3
+    `, [mentiraQuery, MAX_MENTIRA_RESULTS_WEBSEARCH_PER_QUERY.toString(), minRank.toString()])
 }

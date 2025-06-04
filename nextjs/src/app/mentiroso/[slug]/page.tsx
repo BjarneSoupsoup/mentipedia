@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 <header className="flex justify-center gap-5 text-base items-center flex-col flex-1 text-center">
                     <div>
                         <h1><b>{mentirosoData.nombre_completo}</b>,</h1>
-                        <h2>{renderAliasText(mentirosoData, false)}</h2>
+                        <h2>{renderAliasText(mentirosoData.alias, false)}</h2>
                         <Link href="404">(cambiar)</Link>
                     </div>
                     <div>

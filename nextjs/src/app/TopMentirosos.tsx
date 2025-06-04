@@ -15,7 +15,7 @@ export default async function TopMentirosos() {
                     <div className="text-xs flex-3 flex flex-row justify-start items-center">
                         <p>
                             <b>{x.nombre_completo}</b>
-                            {renderAliasText(x)}
+                            {renderAliasText(x.alias)}
                         </p>
                     </div>
                     <div className="flex-1"></div>

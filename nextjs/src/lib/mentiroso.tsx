@@ -30,8 +30,8 @@ export async function computeThreatLevel(mentiroso_no_mentiras: number) {
     }
 }
 
-export function renderAliasText(mentiroso: { alias: string }, leading_comma = true) {
-  if (mentiroso.alias == null) {
+export function renderAliasText(alias: string, leading_comma = true) {
+  if (alias == null) {
     return ""
   }
   let alias_text = "alias "
@@ -40,6 +40,6 @@ export function renderAliasText(mentiroso: { alias: string }, leading_comma = tr
   }
   return <>
     { alias_text }
-    <span className="italic">{mentiroso.alias}</span>
+    <span className="italic">{alias}</span>
   </>
 }

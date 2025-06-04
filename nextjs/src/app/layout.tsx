@@ -15,9 +15,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className="backgroundPaper h-100% min-h-screen flex flex-col font-[TimesNewRoman]">
         <Navbar/>
-        <main className="flex-grow">
-          {children}
-        </main>
+          <main className="flex-grow">
+            {children}
+          </main>
         <Footer/>
       </body>
     </html>

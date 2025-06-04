@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             </aside>
             <header className="flex justify-center gap-5 text-base items-center flex-col flex-2 text-center">
                 <div>
-                    <h1>El día {formatDateLong(mentiraData.mentira.fecha)} <b>{mentiraData.mentiroso.nombre_completo}</b>, {renderAliasText(mentiraData.mentiroso, false) } dijo: </h1>
+                    <h1>El día {formatDateLong(mentiraData.mentira.fecha)} <b>{mentiraData.mentiroso.nombre_completo}</b>, {renderAliasText(mentiraData.mentiroso.alias, false) } dijo: </h1>
                 </div>
             </header>
         </div>
@@ -49,10 +49,13 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <h2 className="text-2xl"><b>Fuentes</b></h2>
             <ul className="flex flex-col mt-2 gap-2">
                 { mentiraData.fuentes.map((x) => {
-                    return <li key={x.id}>
-                        &ndash; <a className={BLUE_HYPERLINK_STYLE} href={x.hyperlink}>{x.texto}</a>
-                    </li>
-                }) }
+                    return (
+                        <li key={x.id} className="flex">
+                            <span className="mr-1">&ndash;</span>
+                            <a className={BLUE_HYPERLINK_STYLE} href={x.hyperlink}>{x.texto}</a>
+                        </li>
+                    )
+                })}
             </ul>
         </section>
     </div>
