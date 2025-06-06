@@ -1,8 +1,12 @@
 import Image from "next/image"
 import * as fonts from "@/lib/fonts"
 import TopMentirosos from "@/app/TopMentirosos"
+import { getTopMentirososView } from "@/lib/dbFetching"
 
 export default async function Page() {
+  // Further mentirosos can be fetched by the browser via infi-scroll
+  const initialTopMentirosos = await getTopMentirososView()
+
   return (
     <div>
       <header className="flex justify-center items-center flex-col mt-3">
@@ -15,7 +19,7 @@ export default async function Page() {
       </header>
       <section className="mt-[2%] flex flex-col items-center justify-center gap-2">
         <p className={`${fonts.Limelight_class} text-base`}>El pinochómetro</p>
-        <TopMentirosos/>
+        <TopMentirosos topMentirososInit={initialTopMentirosos}/>
       </section>
     </div>
   )

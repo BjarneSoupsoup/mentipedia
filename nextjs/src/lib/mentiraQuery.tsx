@@ -1,8 +1,12 @@
-import { webSearchMentira } from "./dbFetching"
+import { WebSearchDBResultType, webSearchMentira } from "./dbFetching"
+import { isEqual } from "lodash"
 
 const LAST_QUERY_RES_CACHE: {
-    query: string | undefined;
-    response: any[] | undefined;
+    query: {
+        query: string,
+        minRank: number
+    } | undefined;
+    response: WebSearchDBResultType | undefined;
 } = {
     query: undefined,
     response: undefined
@@ -14,11 +18,16 @@ export async function cachedSearchMentira(inputSearch: string, minRank = 0) {
     if (inputSearch.length <= 3) {
         return undefined
     }
-    if (LAST_QUERY_RES_CACHE.query === inputSearch && LAST_QUERY_RES_CACHE.response) {
+    // Only cache if the query string and the minRank (offset) were both used previously, in conjunction.
+    const inputSearchCacheKey = {
+        query: inputSearch,
+        minRank: minRank
+    }
+    if (isEqual(LAST_QUERY_RES_CACHE.query, inputSearchCacheKey) && LAST_QUERY_RES_CACHE.response) {
         return LAST_QUERY_RES_CACHE.response
     }
     const response = await webSearchMentira(inputSearch, minRank)
-    LAST_QUERY_RES_CACHE.query = inputSearch
+    LAST_QUERY_RES_CACHE.query = inputSearchCacheKey
     LAST_QUERY_RES_CACHE.response = response
     return response
 }

@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import "@/styles/globals.css";
 import "@/styles/background.css"
 import Footer from "./Footer";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Mentipedia",
@@ -14,7 +15,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className="backgroundPaper h-100% min-h-screen flex flex-col font-[TimesNewRoman]">
-        <Navbar/>
+        <Suspense>
+          <Navbar/>
+        </Suspense>
           <main className="flex-grow">
             {children}
           </main>

@@ -85,25 +85,41 @@ export async function getMentiraData(mentiraSlug: string) {
 // Performs full-text search.
 // Returns the mentira slug, for redirection.
 // minRank is used for fetching results in a paginated fashion
-export async function webSearchMentira(mentiraQuery: string, minRank = 0) {
-    return await submitQuery(`
-        WITH t AS (
+export interface WebSearchDBResultType {
+    items: any[],
+    lastPage: boolean
+}
+
+export async function webSearchMentira(mentiraQuery: string, minRank = 0): Promise<WebSearchDBResultType> {
+    console.log(`minRank = ${minRank}`)
+    const x = await submitQuery(`
+        WITH t1 AS (
             SELECT websearch_to_tsquery('spanish', $1) AS query
+        ),
+        t2 AS (
+            SELECT
+                ma.id as id,
+                ma.mentira,
+                mo.nombre_completo AS mentiroso,
+                mo.retrato_s3_key,
+                ma.fecha,
+                ma.slug,
+                TS_RANK(ma.search_bag_of_words_vec, t1.query) AS searchRank
+            FROM Mentiras ma
+            INNER JOIN Mentirosos mo ON mo.id = ma.mentiroso_id, t1
+            WHERE ma.search_bag_of_words_vec @@ t1.query
+            ORDER BY searchRank DESC, fecha DESC, id ASC
+            LIMIT $2
+            OFFSET $3
         )
-        SELECT
-            ma.id as id,
-            ma.mentira,
-            mo.nombre_completo AS mentiroso,
-            mo.retrato_s3_key,
-            ma.fecha,
-            ma.slug,
-            t.query,
-            TS_RANK(ma.search_bag_of_words_vec, t.query) AS searchRank
-        FROM Mentiras ma
-        INNER JOIN Mentirosos mo ON mo.id = ma.mentiroso_id, t
-        WHERE ma.search_bag_of_words_vec @@ t.query
-        ORDER BY searchRank DESC
-        LIMIT $2
-        OFFSET $3
+        SELECT id, mentira, mentiroso, retrato_s3_key, fecha, slug, searchRank FROM t2
     `, [mentiraQuery, MAX_MENTIRA_RESULTS_WEBSEARCH_PER_QUERY.toString(), minRank.toString()])
+    let items = x
+    if (!items) {
+        items = []
+    }
+    return {
+        items: items,
+        lastPage: items.length < MAX_MENTIRA_RESULTS_WEBSEARCH_PER_QUERY
+    }
 }

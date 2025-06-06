@@ -31,9 +31,9 @@ function trimMentiraOnelineMobile(mentira: string, nombreCompleto: string) {
 const onSearchTypeCallback = debounce(
     BACKEND_TEXT_SEARCH_THROTTLE_MS,
     async (inputSearch: string, setter: (data: any[]) => void) => {
-        const res = await cachedSearchMentira(inputSearch)
-        if (res) {
-            setter(res)
+        const res = (await cachedSearchMentira(inputSearch))!
+        if (res && res.items.length > 0) {
+            setter(res.items)
         }
     }
 )
@@ -46,15 +46,15 @@ export default function Navbar() {
     const pathname = usePathname()
     const queryStringArgs = useSearchParams()
 
-    useEffect(() => {
-        cleanSearchBar()
-    }, [pathname, queryStringArgs])
-
     function cleanSearchBar() {
         setEnlargedModeActive(false)
         setSearchResultsPreview([])
         setSearchBarUserInputText("")
     }
+
+    useEffect(() => {
+        cleanSearchBar()
+    }, [pathname, queryStringArgs])
 
     const formHTMLRef = useRef<HTMLFormElement>(null)
     useOnClickOutside(formHTMLRef as React.RefObject<HTMLFormElement>, cleanSearchBar)

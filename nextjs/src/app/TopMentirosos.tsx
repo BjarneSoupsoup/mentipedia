@@ -1,11 +1,19 @@
-import { getTopMentirososView } from "@/lib/dbFetching"
+"use client"
+
 import { renderAliasText } from "@/lib/mentiroso"
 import Link from "next/link"
 import { BLUE_HYPERLINK_STYLE } from "@/lib/ui/Link"
+import { useEffect, useState } from "react"
 
-export default async function TopMentirosos() {
+export default function TopMentirosos({ topMentirososInit }: { topMentirososInit: any[] }) {
+    const [mentirososList, setMentirososList] = useState<any[]>(topMentirososInit)
+
+    useEffect(() => {
+        setMentirososList(topMentirososInit)
+    }, [])
+
     return <ul className="flex flex-col gap-2 items-start w-9/10">
-        {(await getTopMentirososView()).map((x) => {
+        {mentirososList.map((x) => {
             return <li className="w-full" key={x.id}>
               <Link href={`/mentiroso/${x.slug}`} className="flex flex-row justify-start gap-2">
                 <div className="relative w-[20%] aspect-square shrink-0">

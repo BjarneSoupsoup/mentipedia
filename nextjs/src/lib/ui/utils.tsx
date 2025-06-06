@@ -1,8 +1,9 @@
-export function formatDateLong(date_str: string): string {
-    const date = new Date(date_str)
+export function formatDateLong(dateStr: string): string {
+    const date = new Date(dateStr)
     return `${date.getDate()} de ${date.toLocaleString('es-ES', { month: "long" })} de ${date.getFullYear()}`
 }
 
-export function formatDateddmmYY(date: Date) {
+export function formatDateddmmYY(dateStr: string) {
+    const date = new Date(dateStr)
     return date.getDate().toString() + " / " + date.getMonth().toString() + " / " + date.getFullYear().toString()
 }
