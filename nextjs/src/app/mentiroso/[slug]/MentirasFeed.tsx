@@ -32,7 +32,7 @@ export default function MentirasFeed({ initialMentiras, nombreMentiroso, mentiro
         }) }</ul>
 
     return(
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2 justify-start items-center">
             { mentirasListComponent }
             { isFetchingNewContent && loadingHamsterDiv}
         </div>

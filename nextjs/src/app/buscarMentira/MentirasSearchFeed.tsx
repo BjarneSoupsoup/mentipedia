@@ -40,7 +40,7 @@ export default function MentirasSearchFeed({ mentiraQuery }: { mentiraQuery: str
                 return(
                     <div key={x.id} className="w-full flex flex-row justify-between">
                         <div className="flex-2 flex flex-col justify-center">
-                            <div className="h-13 w-12">
+                            <div className="w-12 aspect-[4/5]">
                                 <img className="object-fill h-full w-full" alt={x.mentiroso.webp} src={`${process.env.NEXT_PUBLIC_S3_ORIGIN}/public/${x.retrato_s3_key}`} />
                             </div>
                             <p className="text-xs"><b>{ x.mentiroso }</b></p>

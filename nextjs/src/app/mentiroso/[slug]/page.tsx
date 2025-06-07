@@ -15,10 +15,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     }  
 
     return(
-        <div className="flex flex-col mt-5 p-4">
+        <div className="flex flex-col mt-5 p-4 gap-10">
             <div className="flex flex-row h-[20vh]">
                 <aside className="flex-1 flex flex-col items-center gap-0.5">
-                    <div className="relative flex-4 w-2/3">
+                    <div className="relative flex-4 w-2/3 aspect-[4/5]">
                         <img className="object-fill h-full w-full" alt={mentirosoData.nombre_completo} src={`${process.env.S3_ORIGIN}/public/${mentirosoData.retrato_s3_key}`} />
                     </div>
                     <div className={`flex-3 text-sm ${CourierPrime_class} text-center`}>
@@ -37,7 +37,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                     </div>
                 </header>
             </div>
-            <section className="mt-5 ms-2">
+            <section className="ms-2">
                 <MentirasFeed initialMentiras={mentirosoLandingPageData.mentiras} nombreMentiroso={mentirosoData.nombre_completo} mentirosoId={mentirosoData.id}/>
             </section>
         </div>
