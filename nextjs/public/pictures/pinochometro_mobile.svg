@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="193.46628mm"
+   height="72.910721mm"
+   viewBox="0 0 193.46627 72.910721"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   sodipodi:docname="pinochometro_mobile.svg"
+   inkscape:export-filename="pinochometro_mobile.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.6126984"
+     inkscape:cx="299.49803"
+     inkscape:cy="104.79331"
+     inkscape:window-width="2560"
+     inkscape:window-height="1440"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:export-bgcolor="#ffffff00" />
+  <defs
+     id="defs1">
+    <rect
+       x="768.61035"
+       y="425.99408"
+       width="25.090408"
+       height="8.043664"
+       id="rect9" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-9.9999241,-42.033706)">
+    <path
+       id="rect3"
+       style="fill:#efe905;fill-opacity:0.70182;fill-rule:nonzero;stroke:#000000;stroke-width:0.209198;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:0.418395, 0.209198;stroke-dashoffset:0"
+       d="M 14.104583 42.138609 C 11.888689 42.138609 10.104827 43.922471 10.104827 46.138365 L 10.104827 110.83933 C 10.104827 113.05522 11.888689 114.83908 14.104583 114.83908 L 199.36149 114.83908 C 201.57739 114.83908 203.36125 113.05522 203.36125 110.83933 L 203.36125 46.138365 C 203.36125 43.922471 201.57739 42.138609 199.36149 42.138609 L 14.104583 42.138609 z M 19.215382 71.49599 A 5.3320312 5.3320312 0 0 1 24.547873 76.827965 A 5.3320312 5.3320312 0 0 1 19.215382 82.159939 A 5.3320312 5.3320312 0 0 1 13.883408 76.827965 A 5.3320312 5.3320312 0 0 1 19.215382 71.49599 z " />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#efe905;fill-opacity:0.70182;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linejoin:round"
+       x="46.757812"
+       y="74.320312"
+       id="text3"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="stroke-width:0"
+         x="46.757812"
+         y="74.320312" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linejoin:round"
+       x="47.578125"
+       y="29.695312"
+       id="text5"><tspan
+         sodipodi:role="line"
+         id="tspan5"
+         style="stroke-width:0"
+         x="47.578125"
+         y="29.695312" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.687917px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-dasharray:none"
+       x="86.219078"
+       y="0.95696789"
+       id="text6"
+       transform="rotate(78.704658)"><tspan
+         sodipodi:role="line"
+         id="tspan6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="86.219078"
+         y="0.95696789"
+         rotate="330 330 330 330 330 330 330 330 0">UN SANTO</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.88007px;line-height:0;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:2.60574px;word-spacing:-3.96875px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.236;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       x="27.61944"
+       y="68.479385"
+       id="text7"
+       transform="scale(1.2712619,0.78661997)"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.88007px;line-height:0;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:2.60574px;word-spacing:-3.96875px;stroke-width:0.236;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+         x="27.61944"
+         y="68.479385"
+         dy="0">EL PINOCHÓMETRO</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.76389px;line-height:0;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:2.60574px;word-spacing:-3.96875px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.036;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       x="11.988819"
+       y="56.989048"
+       id="text7-4"
+       transform="scale(1.2712619,0.78661997)"><tspan
+         sodipodi:role="line"
+         id="tspan7-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.76389px;line-height:0;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:2.60574px;word-spacing:-3.96875px;stroke-width:0.036;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+         x="11.988819"
+         y="56.989048">MENTIPEDIA</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0472907;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7"
+       width="0.68089521"
+       height="12.056212"
+       x="20.023645"
+       y="102.78946" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0472907;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-3"
+       width="0.68089521"
+       height="12.056212"
+       x="60.023643"
+       y="102.78964" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0346851;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9"
+       width="0.69350076"
+       height="6.3676457"
+       x="30.017342"
+       y="108.55876" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0353308;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-0"
+       width="0.69285506"
+       height="6.6130939"
+       x="40.017666"
+       y="108.23066" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0353308;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-0-6"
+       width="0.69285506"
+       height="6.6130939"
+       x="50.017666"
+       y="108.31299" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0472907;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-3-6"
+       width="0.68089521"
+       height="12.056212"
+       x="100.02364"
+       y="102.78983" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0346851;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-3"
+       width="0.69350076"
+       height="6.3676457"
+       x="70.017342"
+       y="108.55895" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0353308;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-0-1"
+       width="0.69285506"
+       height="6.6130939"
+       x="80.017662"
+       y="108.23084" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0353308;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-0-6-7"
+       width="0.69285506"
+       height="6.6130939"
+       x="90.017662"
+       y="108.31317" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0472906;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-3-3"
+       width="0.68089336"
+       height="12.056212"
+       x="140.02356"
+       y="102.78964" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0346851;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-1"
+       width="0.69349885"
+       height="6.3676457"
+       x="110.01734"
+       y="108.55876" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0353308;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-0-8"
+       width="0.69285315"
+       height="6.6130939"
+       x="120.01765"
+       y="108.23066" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0353308;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-0-6-9"
+       width="0.69285315"
+       height="6.6130939"
+       x="130.01761"
+       y="108.31299" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0472906;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-3-6-6"
+       width="0.68089336"
+       height="12.056212"
+       x="180.02347"
+       y="102.78983" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0346851;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-3-4"
+       width="0.69349885"
+       height="6.3676457"
+       x="150.01724"
+       y="108.55895" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0353308;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-0-1-3"
+       width="0.69285315"
+       height="6.6130939"
+       x="160.01753"
+       y="108.23084" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0353308;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-0-6-7-3"
+       width="0.69285315"
+       height="6.6130939"
+       x="170.0175"
+       y="108.31317" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0353308;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect7-9-0-6-7-3-4"
+       width="0.69285315"
+       height="6.6130939"
+       x="190.01767"
+       y="108.31367" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.687917px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-dasharray:none"
+       x="86.700584"
+       y="-7.7239447"
+       id="text6-7"
+       transform="rotate(78.704658)"><tspan
+         sodipodi:role="line"
+         id="tspan6-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="86.700584"
+         y="-7.7239447"
+         rotate="330 330 330 330 330 330 330 330 330 330 330 0">MENTIROSETE</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.687917px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-dasharray:none"
+       x="107.07565"
+       y="-27.861345"
+       id="text6-8"
+       transform="rotate(78.704658)"><tspan
+         sodipodi:role="line"
+         id="tspan6-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="107.07565"
+         y="-27.861345"
+         rotate="330 330 330 330 0">JETA</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="107.07565"
+         y="-24.08325"
+         rotate="0 0 0 0 0"
+         id="tspan8" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.687917px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-dasharray:none"
+       x="94.022842"
+       y="-38.377007"
+       id="text6-2"
+       transform="rotate(78.704658)"><tspan
+         sodipodi:role="line"
+         id="tspan6-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="94.022842"
+         y="-38.377007"
+         rotate="330 330 330 330 330 330 330 330 0">JETONCIO</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.687917px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-dasharray:none"
+       x="87.397995"
+       y="-86.04715"
+       id="text6-0"
+       transform="rotate(78.704658)"><tspan
+         sodipodi:role="line"
+         id="tspan6-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="87.397995"
+         y="-86.04715"
+         rotate="330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 0">SILVIO PEDRUSCONI</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.687917px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-dasharray:none"
+       x="97.173019"
+       y="-57.534729"
+       id="text6-6"
+       transform="rotate(78.704658)"><tspan
+         sodipodi:role="line"
+         id="tspan6-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="97.173019"
+         y="-57.534729"
+         rotate="330 330 330 330 330 330 330 330 330 330 0">ESPÍA RUSO</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.396875px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-linejoin:round;stroke-dasharray:none"
+       x="80.094383"
+       y="-188.2887"
+       id="text6-84"
+       transform="rotate(89.839865)"><tspan
+         sodipodi:role="line"
+         id="tspan6-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.396875px;stroke-width:0.2;stroke-dasharray:none"
+         x="80.094383"
+         y="-188.2887"
+         rotate="0 0 0 0 0 0 0 0">VILLANO</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.687917px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-dasharray:none"
+       x="80.105812"
+       y="-77.680885"
+       id="text6-29"
+       transform="rotate(78.704658)"><tspan
+         sodipodi:role="line"
+         id="tspan6-90"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="80.105812"
+         y="-77.680885"
+         rotate="330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 0">MIENTE POR PLACER</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.687917px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-dasharray:none"
+       x="76.227875"
+       y="-66.370468"
+       id="text6-1"
+       transform="rotate(78.704658)"><tspan
+         sodipodi:role="line"
+         id="tspan6-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="76.227875"
+         y="-66.370468"
+         rotate="330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 330 0">MIENTE POR PROFESIÓN</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.687917px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-dasharray:none"
+       x="95.580437"
+       y="-17.631035"
+       id="text6-9"
+       transform="rotate(78.704658)"><tspan
+         sodipodi:role="line"
+         id="tspan6-19"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="95.580437"
+         y="-17.631035"
+         rotate="330 330 330 330 330 330 330 330 0">JAIMITIO</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'Font Awesome 6 Brands';-inkscape-font-specification:'Font Awesome 6 Brands';text-align:start;letter-spacing:0.687917px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-dasharray:none"
+       x="91.734756"
+       y="-46.570396"
+       id="text6-80"
+       transform="rotate(78.704658)"><tspan
+         sodipodi:role="line"
+         id="tspan6-56"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:'JetBrainsMono Nerd Font';-inkscape-font-specification:'JetBrainsMono Nerd Font';letter-spacing:0.687917px;stroke-width:0.1;stroke-dasharray:none"
+         x="91.734756"
+         y="-46.570396"
+         rotate="330 330 330 330 330 330 330 330 330 330 330 330 0">BART SIMPSON</tspan></text>
+  </g>
+</svg>

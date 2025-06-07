@@ -1,11 +1,24 @@
+"use client"
+
+import { pagedMentirosoMentirasFetch } from "@/lib/dbFetching"
 import { MentiraSummaryDAO } from "@/lib/mentiras"
+import { useInfiScroll } from "@/lib/ui/infiScroll"
 import { Link } from "@/lib/ui/Link"
+import LoadingHamster from "@/lib/ui/LoadingHamster"
 import { formatDateLong } from "@/lib/ui/utils"
 
 // Initially renders the top X mentiras, then relies on client data fetching for further data consumption.
-export default async function MentirasFeed({ mentiras, nombreMentiroso } : { mentiras: MentiraSummaryDAO[], nombreMentiroso: string }) {
-    return (
-        <ul className="flex flex-col gap-5 divide-y divide-gray-300">{ mentiras.map((x) => {
+export default function MentirasFeed({ initialMentiras, nombreMentiroso, mentirosoId }: { initialMentiras: MentiraSummaryDAO[], nombreMentiroso: string, mentirosoId: number }) {
+    console.log(`mentirosoId.class = ${typeof mentirosoId}`)
+    const {itemsCollection: mentirasList, isFetchingNewContent} = useInfiScroll((x) => {
+        return pagedMentirosoMentirasFetch(mentirosoId, x)
+    }, initialMentiras)
+
+    const loadingHamsterDiv = <div className="pt-5 w-2/7 h-4/7">
+        <LoadingHamster/>
+    </div>
+
+    const mentirasListComponent = <ul className="flex flex-col gap-5 divide-y divide-gray-300">{ mentirasList.map((x) => {
             return <li key = {x.id} className="pb-5">
                 <p className="italic">
                     <Link href={`/mentira/${x.slug}`}>
@@ -17,5 +30,11 @@ export default async function MentirasFeed({ mentiras, nombreMentiroso } : { men
                 <p className="text-right mr-[10%]">&mdash; { nombreMentiroso }, a  { formatDateLong(x.fecha) } </p>
             </li>
         }) }</ul>
+
+    return(
+        <div className="flex flex-col gap-1">
+            { mentirasListComponent }
+            { isFetchingNewContent && loadingHamsterDiv}
+        </div>
     )
 }

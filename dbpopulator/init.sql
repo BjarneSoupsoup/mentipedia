@@ -123,16 +123,18 @@ CREATE OR REPLACE TRIGGER make_slug_on_mentira_trigger BEFORE INSERT OR UPDATE O
     FOR EACH ROW EXECUTE FUNCTION make_slug_on_mentira();
 
 
--- Materialized view for faster retrieval of information for the landing page
+-- Materialized views for faster retrieval of information for the landing page
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS TopMentirosos AS
     SELECT mo.id, mo.slug, nombre_completo, alias, retrato_s3_key, COUNT(ma.id) AS num_of_mentiras
     FROM Mentirosos mo
     JOIN Mentiras ma ON mo.id = ma.mentiroso_id
     GROUP BY (mo.id, mo.slug, nombre_completo, alias, retrato_s3_key)
-    ORDER BY num_of_mentiras DESC
+    ORDER BY num_of_mentiras DESC, nombre_completo ASC, mo.id ASC
     LIMIT 10;
 
+CREATE MATERIALIZED VIEW IF NOT EXISTS TotalMentirosos AS
+    SELECT COUNT(*) AS total_mentirosos FROM Mentirosos;
 
 CREATE TABLE IF NOT EXISTS FuentesMentira (
     id                          SERIAL          PRIMARY KEY,

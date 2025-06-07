@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     const mentirosoData = mentirosoLandingPageData.mentirosoData
     if (!mentirosoLandingPageData.mentirosoData) {
         return notFound()
-    }
+    }  
 
     return(
         <div className="flex flex-col mt-5 p-4">
@@ -38,7 +38,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 </header>
             </div>
             <section className="mt-5 ms-2">
-                <MentirasFeed mentiras={mentirosoLandingPageData.mentiras} nombreMentiroso={mentirosoData.nombre_completo}/>
+                <MentirasFeed initialMentiras={mentirosoLandingPageData.mentiras} nombreMentiroso={mentirosoData.nombre_completo} mentirosoId={mentirosoData.id}/>
             </section>
         </div>
     )

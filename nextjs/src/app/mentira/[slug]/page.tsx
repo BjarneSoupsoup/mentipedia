@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     return <div className="flex flex-col mt-5 px-6 pt-3 gap-5">
         <div className="flex flex-row h-[8vh]">
             <aside className="flex-1 flex flex-col items-center">
-                <div className="relative flex-4 h-full aspect-square">
+                <div className="relative flex-4 w-16 h-10">
                     <img className="object-fill h-full w-full" alt={mentiraData.mentiroso.nombre_completo} src={`${process.env.S3_ORIGIN}/public/${mentiraData.mentiroso.retrato_s3_key}`} />
                 </div>
             </aside>

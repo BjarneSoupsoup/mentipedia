@@ -126,8 +126,9 @@ def seed_postgresdb(db_cursor, db_con):
             "nombre_completo": fake.name()
         }
         populate_mentiroso(fake_mentiroso, db_cursor, fake)
-    # Update the landing page materialized view
+    # Update the landing page materialized views
     db_cursor.execute("REFRESH MATERIALIZED VIEW TopMentirosos;")
+    db_cursor.execute("REFRESH MATERIALIZED VIEW TotalMentirosos;")
     db_con.commit()
 
 

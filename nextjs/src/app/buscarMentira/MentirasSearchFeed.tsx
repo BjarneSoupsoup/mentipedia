@@ -1,7 +1,7 @@
 "use client"
 
 import { cachedSearchMentira } from "@/lib/mentiraQuery"
-import useInfiScroll from "@/lib/ui/infiScroll"
+import { useInfiScroll } from "@/lib/ui/infiScroll"
 import { Link } from "@/lib/ui/Link"
 import LoadingHamster from "@/lib/ui/LoadingHamster"
 import { formatDateddmmYY } from "@/lib/ui/utils"
@@ -11,31 +11,12 @@ import { useEffect } from "react"
 // Better to render straight from the browser, as it will have probably pre-fetched the query results while
 // the user was typing the search.
 export default function MentirasSearchFeed({ mentiraQuery }: { mentiraQuery: string }): React.ReactNode {
-    const [searchResults, isFetchingNewContent, keepFetching] = useInfiScroll(async (page) => {
-        const response = (await cachedSearchMentira(mentiraQuery, page))!
-        return {
-            isLastPage: response.lastPage,
-            pageItems: response.items
-        }
+    const { itemsCollection: searchResults, isFetchingNewContent, resetState: resetInfiScrollState } = useInfiScroll(async (page) => {
+        return (await cachedSearchMentira(mentiraQuery, page))!
     })
 
     useEffect(() => {
-        // Inject the listener only once the component has been mounted on the browser
-        window.addEventListener('scroll', throttledScrollHandler);
-        // On component startup, start
-        (async () => {
-            setIsFetchingNewContent(true)
-            await new Promise(r => setTimeout(r, 2000))
-            // This should be very fast, as the query will have been probably already been ran by the user previously
-            const response = await cachedSearchMentira(mentiraQuery)
-            // TODO: errors should be checked, and an error image should be shown.
-            // For now, we can assume that the queryString is not empty and is properly formed
-            const x = response!
-            setSearchResults(x.mentiras)
-            page.current = x.mentiras.length
-            totalMentirasDB.current = x.numOfMentiras
-            setIsFetchingNewContent(false)
-        })()
+        resetInfiScrollState()
     }, [mentiraQuery])
 
     const loadingHamsterDiv = <div className="pt-5 w-2/7 h-4/7">

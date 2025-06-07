@@ -19,6 +19,7 @@ services:
       - PGPORT=5432
       - PGDATABASE=mentipedia
       - S3_ORIGIN=http://localhost:10004
+      - DEV_MODE=TRUE
     working_dir: /mentipedia
     command: yarn next ${NEXTJS_COMMAND}
     ports:

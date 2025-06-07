@@ -1,5 +1,5 @@
 export interface MentirosoDAO {
-  id              : string,
+  id              : number,
   nombre_completo : string,
   alias           : string,
   slug            : string,

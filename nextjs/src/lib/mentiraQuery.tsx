@@ -1,12 +1,13 @@
-import { WebSearchDBResultType, webSearchMentira } from "./dbFetching"
+import { webSearchMentira } from "./dbFetching"
 import { isEqual } from "lodash"
+import { PageDAO } from "./ui/infiScroll";
 
 const LAST_QUERY_RES_CACHE: {
     query: {
         query: string,
         minRank: number
     } | undefined;
-    response: WebSearchDBResultType | undefined;
+    response: PageDAO | undefined;
 } = {
     query: undefined,
     response: undefined

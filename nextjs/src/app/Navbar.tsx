@@ -32,8 +32,8 @@ const onSearchTypeCallback = debounce(
     BACKEND_TEXT_SEARCH_THROTTLE_MS,
     async (inputSearch: string, setter: (data: any[]) => void) => {
         const res = (await cachedSearchMentira(inputSearch))!
-        if (res && res.items.length > 0) {
-            setter(res.items)
+        if (res && res.pageItems.length > 0) {
+            setter(res.pageItems)
         }
     }
 )
@@ -42,6 +42,9 @@ export default function Navbar() {
     const [enlargedModeActive, setEnlargedModeActive] = useState(false)
     const [searchResultsPreview, setSearchResultsPreview] = useState<any[]>([])
     const [searchBarUserInputText, setSearchBarUserInputText] = useState("")
+    
+    const searchInputHTMLRef = useRef<HTMLInputElement>(null)
+    const formHTMLRef = useRef<HTMLFormElement>(null)
 
     const pathname = usePathname()
     const queryStringArgs = useSearchParams()
@@ -50,13 +53,15 @@ export default function Navbar() {
         setEnlargedModeActive(false)
         setSearchResultsPreview([])
         setSearchBarUserInputText("")
+        if (searchInputHTMLRef.current) {
+            searchInputHTMLRef.current.blur()
+        }
     }
 
     useEffect(() => {
         cleanSearchBar()
     }, [pathname, queryStringArgs])
 
-    const formHTMLRef = useRef<HTMLFormElement>(null)
     useOnClickOutside(formHTMLRef as React.RefObject<HTMLFormElement>, cleanSearchBar)
 
     return <nav className="flex flex-col items-center mt-[1vh] border-b-3">
@@ -78,7 +83,8 @@ export default function Navbar() {
                         onInput={(x: React.ChangeEvent<HTMLInputElement>) => {
                             onSearchTypeCallback(x.target.value, setSearchResultsPreview)
                             setSearchBarUserInputText(x.target.value)
-                        }} 
+                        }}
+                        ref={searchInputHTMLRef}
                         type="text" className="text-sm border-2 min-w-0 w-full" name="mentira" placeholder="Buscar mentira" value={searchBarUserInputText}
                     />
                     <button type="submit" className="w-12 aspect-square relative cursor-pointer">
