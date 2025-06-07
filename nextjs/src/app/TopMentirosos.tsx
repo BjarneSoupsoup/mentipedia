@@ -14,9 +14,21 @@ export default function TopMentirosos({ topMentirososInit }: { topMentirososInit
         {mentirososList.map((x) => {
             return <li className="w-full" key={x.id}>
               <Link href={`/mentiroso/${x.slug}`} className="flex flex-row justify-start gap-2">
-                <div className="relative w-1/6 aspect-square shrink-0">
-                    <img className="object-fill" alt={x.nombre_completo} src={`${process.env.NEXT_PUBLIC_S3_ORIGIN}/public/${x.retrato_s3_key}`} />
-                </div>
+                    <div>
+                        <div className="relative w-1/6 aspect-square">
+                            <img className="object-fill" alt={x.nombre_completo} src={`${process.env.NEXT_PUBLIC_S3_ORIGIN}/public/${x.retrato_s3_key}`} />
+                            {/* <div style = {{
+                                clipPath: "inset(10px 0px 84px 0px)",
+                                position: "absolute",
+                                top: "10px",
+                                right: "-75px",
+                                width: "100px",
+                                zIndex: "1"
+                            }}>
+                                <img style={{width: "500px"}} src="pictures/nose_job_tilemap.webp" alt="nose"/>
+                            </div> */}
+                        </div>
+                    </div>
                 <div className="flex flex-col justify-center">
                     <div className="text-xs flex-3 flex flex-row justify-start items-center">
                         <p>
