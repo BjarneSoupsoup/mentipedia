@@ -39,8 +39,6 @@ async function submitQuery<T extends QueryResultRow>(query: string, parameters?:
         await new Promise(r => setTimeout(r, 500))
     }
     if (parameters) {
-        console.log(query)
-        console.log(parameters)
         return (await PGSQL_CONNECTION_POOL.query<T>(query, parameters)).rows
     } else {
         return (await PGSQL_CONNECTION_POOL.query<T>(query)).rows

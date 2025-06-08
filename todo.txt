@@ -1,3 +1,11 @@
-- Portraits should be standarized and already be cropped at square aspect-ratio
-- Create admin page:
-    - Validate new mentiras
+- Create mentirologo feature:
+    - Exam for sign up
+    - Exam validation
+    - Session management
+    - Add mentiras
+    - Edit mentiras
+    - Remove mentiras
+- Remake pinochometro svg
+- Remake noses to fit the number of points in the Pinochometro ruler
+- Add nose position to portraits
+- Add proper styling for desktop viewport

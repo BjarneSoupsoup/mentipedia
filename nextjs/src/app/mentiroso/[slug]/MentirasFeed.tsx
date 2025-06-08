@@ -9,7 +9,6 @@ import { formatDateLong } from "@/lib/ui/utils"
 
 // Initially renders the top X mentiras, then relies on client data fetching for further data consumption.
 export default function MentirasFeed({ initialMentiras, nombreMentiroso, mentirosoId }: { initialMentiras: MentiraSummaryDAO[], nombreMentiroso: string, mentirosoId: number }) {
-    console.log(`mentirosoId.class = ${typeof mentirosoId}`)
     const {itemsCollection: mentirasList, isFetchingNewContent} = useInfiScroll((x) => {
         return pagedMentirosoMentirasFetch(mentirosoId, x)
     }, initialMentiras)
@@ -23,7 +22,7 @@ export default function MentirasFeed({ initialMentiras, nombreMentiroso, mentiro
                 <p className="italic">
                     <Link href={`/mentira/${x.slug}`}>
                         <span className="text-xl">&ldquo;</span>
-                        {x.mentira}
+                        { x.mentira }
                         <span className="text-xl">&rdquo;</span>
                     </Link>
                 </p>

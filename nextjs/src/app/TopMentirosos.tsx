@@ -19,12 +19,12 @@ export default function TopMentirosos({ topMentirososInit }: { topMentirososInit
                         <div style = {{
                             clipPath: "inset(10px 0px 84px 0px)",
                             position: "absolute",
-                            top: "10px",
-                            right: "-75px",
+                            top: "25px",
+                            right: "-65px",
                             width: "100px",
                             zIndex: "1"
                         }}>
-                            <img style={{width: "500px"}} src="pictures/nose_job_tilemap.webp" alt="nose"/>
+                            <img style={{width: "500px"}} src="/pictures/nose_job_tilemap.webp" alt="nose"/>
                         </div>
                     </div>
                 <div className="flex flex-col justify-center">

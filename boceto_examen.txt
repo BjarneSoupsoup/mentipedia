@@ -1,0 +1,72 @@
+Cuál es la forma política del Estado español? 
+
+-> campo de texto, similitud muy muy elevada
+
+En qué año España pasó a formar parte de la Unión Europea?
+
+-> campo numérico, exacto
+
+En qué año España pasó a formar parte de la OTAN?
+
+-> campo numérico, exacto
+
+Desde qué año la ciudad de Melilla forma parte del territorio Español
+
+-> campo numérico +- 10%
+
+En qué comunidades autónomas se habla Euskera
+
+-> Lista de campos de texto. Matching exacto
+
+Cuántas repúblicas ha tenido españa? (una única cifra)
+
+-> numérico exacto
+
+Cuáles han sido los presidentes de gobierno de España? (Escribir sólo el primer apellido, en mayúsculas)
+
+-> Lista de campos de texto. Matching exacto
+
+Hasta qué año Cuba fue española?
+
+-> numérico exacto
+
+En qué año se firmó la primera constitución española?
+
+-> numérico exacto
+
+En qué año se descubrió América?
+
+-> numérico exacto
+
+En qué año se expusló a los judíos de España?
+
+-> numérico aprox +- 15%
+
+Durante cuántos años ha estado bajo dominio árabe la ciudad de Granada?
+
+-> numérico aprox +- 15%
+
+En qué siglo escribió Miguel de Cervantes El Quijote (en número romanos)
+
+-> textual exacto
+
+Cuál es la población de España? (escriba todas las cifras) (aproximadamente) (para el año 2024)
+
+-> campo numérico +- 10%
+
+Qué porcentaje de la población española es extranjera (oficialmente) (aproximadamente) (para el año 2024)
+
+-> campo numérico +- 10
+
+Qué porcentaje (en tanto por ciento) de mujeres en españa fueron víctimas de homicidio asesino (aproximadamente) en 2018
+
+-> campo numérico +- 0.1
+
+Cuál es el salario neto mediano (no promedio), mensual, en 12 pagas, después de impuestos y cotizaciones sociales, en España en 2024.
+
+-> campo numérico +- 0.1 1428€
+
+Cuál es el márgen de beneficio neto medio (descontando costes operativos, salarios, impuestos y amortizaciones) de las empresas españolas?
+Se admite amplio grado de variabilidad, sólo se pide una figura orientativa.
+
+-> campo numérico +- 8%

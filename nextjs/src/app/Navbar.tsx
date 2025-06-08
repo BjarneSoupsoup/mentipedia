@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
 const MAX_CHARS_MENTIRA_BRIEF = 62
-const BACKEND_TEXT_SEARCH_THROTTLE_MS = 500
+const BACKEND_TEXT_SEARCH_THROTTLE_MS = 400
 
 function homePageImageLink(): React.ReactNode {
     return <Link href="/">
@@ -85,7 +85,7 @@ export default function Navbar() {
                             setSearchBarUserInputText(x.target.value)
                         }}
                         ref={searchInputHTMLRef}
-                        type="text" className="text-sm border-2 min-w-0 w-full" name="mentira" placeholder="Buscar mentira" value={searchBarUserInputText}
+                        type="text" className="text-sm border-2 min-w-0 w-full pl-1" name="mentira" placeholder="Buscar mentira" value={searchBarUserInputText}
                     />
                     <button type="submit" className="w-12 aspect-square relative cursor-pointer">
                         <img src='/pictures/dog_search.webp' className="object-fill w-full h-full" alt="perroLupa"/>
