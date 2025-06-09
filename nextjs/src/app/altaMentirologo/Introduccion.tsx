@@ -2,7 +2,7 @@ import DepresseableButton from "@/lib/ui/DepresseableButton";
 
 export default function Introduccion({ onClickRealizandoExamenButton }: { onClickRealizandoExamenButton: () => void }) {
     return(
-        <article className="w-5/6 flex flex-col justify-start items-start gap-4">
+        <article className="w-6/7 flex flex-col justify-start items-start gap-4">
             <h1 className="text-2xl"><b>Solicitud de alta como mentirólogo</b></h1>
             <p>
                 La misión de Mentipedia es hacer del mundo un lugar menos torcido y enrevesado, sin vericuetos ni artimañas. Es por eso que

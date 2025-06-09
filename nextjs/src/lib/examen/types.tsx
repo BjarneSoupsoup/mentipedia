@@ -7,17 +7,17 @@ export interface PreguntaExamen {
 
 export type RespuestaT = RespuestaTexto | RespuestaListaTextos | RespuestaNumerico
 
-interface RespuestaTexto {
+export interface RespuestaTexto {
     tipo: "texto",
     textosValidosEsperados: string[]
 }
 
-interface RespuestaListaTextos {
+export interface RespuestaListaTextos {
     tipo: "listaTexto"
     listaTextosValidosEsperados: string[][]
 }
 
-interface RespuestaNumerico {
+export interface RespuestaNumerico {
     tipo: "numérico"
     numeroEsperado: number
     variacionAceptadaAbsoluta: number
