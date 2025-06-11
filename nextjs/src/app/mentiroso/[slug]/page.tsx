@@ -1,4 +1,4 @@
-import { getMentirosoLandingPageData } from "@/lib/dbFetching";
+import { getMentirosoLandingPageData } from "@/lib/db";
 import { CourierPrime_class } from "@/lib/fonts";
 import { computeThreatLevel, renderAliasText } from "@/lib/mentiroso";
 import { notFound } from "next/navigation"

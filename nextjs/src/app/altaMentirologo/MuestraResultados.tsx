@@ -14,10 +14,10 @@ export function MuestraResultados(props: MuestraResultadosPropsType) {
                     la información necesaria para completar su registro dentro de una semana en la dirección de correo 
                     que proveyó: <span className="italic">{props.emailMentirologo}</span>.
                 </p>
-                <div className="h-auto w-3/4 self-center">
-                    <img src="/pictures/rajoy_muchas_gracias_buenas_tardes.webp" className="w-full h-full object-fill"></img>
-                </div>
             </section>
+            <div className="h-auto w-1/2">
+                <img src="/pictures/rajoy_muchas_gracias_buenas_tardes.webp" className="w-full h-full object-fill"></img>
+            </div>
             <Link href="/">Volver a mentipedia</Link>
         </div >
     )

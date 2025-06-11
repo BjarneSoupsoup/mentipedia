@@ -1,7 +1,7 @@
 import Image from "next/image"
 import * as fonts from "@/lib/fonts"
 import TopMentirosos from "@/app/TopMentirosos"
-import { getTopMentirososView, getTotalNumberOfMentirosos } from "@/lib/dbFetching"
+import { getTopMentirososView, getTotalNumberOfMentirosos } from "@/lib/db"
 
 export default async function Page() {
   // Further mentirosos can be fetched by the browser via infi-scroll

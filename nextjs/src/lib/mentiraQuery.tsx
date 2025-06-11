@@ -1,4 +1,4 @@
-import { webSearchMentira } from "./dbFetching"
+import { webSearchMentira } from "./db"
 import { isEqual } from "lodash"
 import { PageDAO } from "./ui/infiScroll";
 

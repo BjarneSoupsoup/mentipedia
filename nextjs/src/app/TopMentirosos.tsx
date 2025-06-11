@@ -4,7 +4,7 @@ import { renderAliasText } from "@/lib/mentiroso"
 import Link from "next/link"
 import { BLUE_HYPERLINK_STYLE } from "@/lib/ui/Link"
 import { useInfiScroll } from "@/lib/ui/infiScroll"
-import { pagedTopMentirososSearch } from "@/lib/dbFetching"
+import { pagedTopMentirososSearch } from "@/lib/db"
 import LoadingHamster from "@/lib/ui/LoadingHamster"
 
 export default function TopMentirosos({ topMentirososInit }: { topMentirososInit: any[] }) {

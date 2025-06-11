@@ -15,23 +15,35 @@ const MAX_NUM_MENTIRAS_PER_PAGE_MENTIROSO_PAGE = 10
 // Beware that the pool is never gracefully shut-down. This is because the application is designed
 // to (potentially) run on a serverless architecture. Hence, to avoid dangling connections, timeouts
 // will be (aggressively) handled on the database server side.
-const PGSQL_CONNECTION_POOL = new Pool({
-    connectionTimeoutMillis: 30000,
-    idleTimeoutMillis: 60000,
-    max: 2,
-    allowExitOnIdle: true
-})
+let PGSQL_CONNECTION_POOL: Pool | null = null
 
 const PGSQL_IDLE_DISCONNECT_FROM_SERVER_ERR_CODE = "57P05"
 
-PGSQL_CONNECTION_POOL.on('error', (err) => {
-    if (err instanceof DatabaseError && err.code && err.code == PGSQL_IDLE_DISCONNECT_FROM_SERVER_ERR_CODE) {
-        // We can safely ignore server-disconnect errors, a new connection will be created.
-        // TODO: we should log this to fine-tune a good DB connection idle timeout.
-        return
+function makePGSQLConnectionPool(): Pool {
+    const pool = new Pool({
+        connectionTimeoutMillis: 30000,
+        idleTimeoutMillis: 60000,
+        max: 2,
+        allowExitOnIdle: true
+    })
+    pool.on('error', (err) => {
+        if (err instanceof DatabaseError && err.code && err.code == PGSQL_IDLE_DISCONNECT_FROM_SERVER_ERR_CODE) {
+            // We can safely ignore server-disconnect errors, a new connection will be created.
+            // TODO: we should log this to fine-tune a good DB connection idle timeout.
+            return
+        }
+        throw err
+    })
+
+    return pool
+}
+
+function getPGSQLPool() {
+    if (!PGSQL_CONNECTION_POOL) {
+        return makePGSQLConnectionPool()
     }
-    throw err
-})
+    return PGSQL_CONNECTION_POOL
+}
 
 async function submitQuery<T extends QueryResultRow>(query: string, parameters?: any[]) {
     if (isDevMode()) {
@@ -39,9 +51,9 @@ async function submitQuery<T extends QueryResultRow>(query: string, parameters?:
         await new Promise(r => setTimeout(r, 500))
     }
     if (parameters) {
-        return (await PGSQL_CONNECTION_POOL.query<T>(query, parameters)).rows
+        return (await getPGSQLPool().query<T>(query, parameters)).rows
     } else {
-        return (await PGSQL_CONNECTION_POOL.query<T>(query)).rows
+        return (await getPGSQLPool().query<T>(query)).rows
     }
 }
 
@@ -188,4 +200,10 @@ export async function webSearchMentira(mentiraQuery: string, minRank = 0): Promi
         pageItems: items,
         isLastPage: items.length < MAX_MENTIRA_RESULTS_WEBSEARCH_PER_QUERY
     }
+}
+
+export async function registerDelayedTask(endpoint: string, deadline: Date, registerTime: Date): Promise<number> {
+    return await submitQuery(`
+        INSERT INTO ScheduledTasks(enqueueTime, deadline, endpoint) VALUES($1, $2, $3) RETURNING id
+    `, [registerTime, deadline, endpoint])[0].id as number
 }

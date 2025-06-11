@@ -1,4 +1,4 @@
-import { getMentiraData } from "@/lib/dbFetching"
+import { getMentiraData } from "@/lib/db"
 import { renderAliasText } from "@/lib/mentiroso"
 import { BLUE_HYPERLINK_STYLE } from "@/lib/ui/Link"
 import { formatDateLong } from "@/lib/ui/utils"

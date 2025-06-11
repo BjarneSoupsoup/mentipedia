@@ -1,6 +1,6 @@
 "use client"
 
-import { pagedMentirosoMentirasFetch } from "@/lib/dbFetching"
+import { pagedMentirosoMentirasFetch } from "@/lib/db"
 import { MentiraSummaryDAO } from "@/lib/mentiras"
 import { useInfiScroll } from "@/lib/ui/infiScroll"
 import { Link } from "@/lib/ui/Link"

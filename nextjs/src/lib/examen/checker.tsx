@@ -23,7 +23,7 @@ function checkRespuestaMultiTexto(respuestaEsperada: RespuestaListaTextos, respu
     const respuestaMentirologosSanitized = Array.from(respuestaMentirologo).filter((x) => x !== "")
 
     if (respuestaMentirologosSanitized.length !== respuestaEsperada.listaTextosValidosEsperados.length) {
-        return { isOk: false, failureReason: "Se esperaba un número distinto de respuestas"}
+        return { isOk: false, failureReason: "Se esperaba un número distinto de respuestas" }
     }
 
     for (let i = 0; i < respuestaMentirologosSanitized.length; ++i) {
@@ -110,5 +110,10 @@ export async function checkExam(_, formData: FormData): Promise<CheckExamRespons
         log({ level: "WARN", msg: { formData: formDataNonSensitive, errCode: "UNHANDLED_ERR_CHECK", errMsg: e }, unit: "checkExamen" }) 
         allChecksOk = false
     }
+
+    if (allChecksOk) {
+        scheduleSendSignupEmail(formData.get("emailMentirologo")?.toString()!)
+    }
+
     return { checkOk: allChecksOk, originalRequest: formData }
 }
