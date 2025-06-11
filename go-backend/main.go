@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"mentipedia/scheduler/logging"
+	"mentipedia/go-backend/logging"
 	"net/http"
 	"os"
 	"os/signal"
@@ -21,7 +21,7 @@ const INIT_SQL_FILEPATH = "./init.sql"
 const LISTEN_SOCKET = "127.0.0.1:10000"
 const POLL_TIME_MINUTES = 5
 
-//go:generate protoc --go_out=./emailservice --go_opt=paths=source_relative --go-grpc_out=./emailservice --go-grpc_opt=paths=source_relative email_service.prototype SchedulerRequest struct {
+type SchedulerRequest struct {
 	Endpoint    *string    `json:"endpoint"`
 	EnqueueTime *time.Time `json:"enqueueTime"`
 	Deadline    *time.Time `json:"deadline"`
@@ -121,13 +121,20 @@ func poll_db_for_deadlines(dbCon *sql.DB, httpClient *http.Client, workerAddress
 	}
 }
 
-func main() {
-	var err error
-	workerAddress := flag.String("worker-address", "", "The scheduler will send HTTP (no TLS) requests to this address once the deadline is reached. Format: 'host:port'")
+type cliInputArgs struct {
+	workerAddress string
+}
+
+func parseArgs() string {
+	workerAddressPtr := flag.String("worker-address", "", "The scheduler will send HTTP (no TLS) requests to this address once the deadline is reached. Format: 'host:port'")
 	flag.Parse()
-	if *workerAddress == "" {
+	if *workerAddressPtr == "" {
 		panic("--worker-address flag is mandatory")
 	}
+	return *workerAddressPtr
+}
+
+func main() {
 
 	// Set up context for graceful shutdown
 	sigtermCtx, stop := signal.NotifyContext(context.Background(), syscall.SIGTERM, syscall.SIGINT)

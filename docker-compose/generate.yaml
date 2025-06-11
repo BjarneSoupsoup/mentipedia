@@ -1,0 +1,11 @@
+name: mentipedia
+
+services:
+  backend-code-generator:
+    user: ${UID}:${GID}
+    build:
+      context: ../go-backend/generate
+    volumes:
+      - ../go-backend:/go-backend
+      - ../common/interface:/common/interface
+      

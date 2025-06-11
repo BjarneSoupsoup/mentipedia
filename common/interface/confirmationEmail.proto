@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-import "google/protobuf/empty.proto";
 package scheduler;
 
+option go_package = "mentipedia/go-backend/signup/email/generated"; 
 
 message SignupConfirmationEmailRequest {
     string email = 1;
@@ -10,9 +10,11 @@ message SignupConfirmationEmailRequest {
     uint64 deadline_timestamp_seconds = 2;
 }
 
+message EmptyMsg { }
+
 // This service will send an email at the specified time containing a secret signup link
 service SignupConfirmationEmailService {
     
     // This process is async by definition, there's no confirmation for when the email is eventually sent (if it is ever sent).
-    rpc RegisterSignupConfirmationEmail(SignupConfirmationEmailRequest) returns(google.protobuf.Empty);
+    rpc RegisterSignupConfirmationEmail(SignupConfirmationEmailRequest) returns(EmptyMsg);
 }
