@@ -4,7 +4,7 @@ WORKDIR /build
 
 RUN apt update && apt install -y sqlite3 libsqlite3-dev build-essential
 
-COPY . ./
+COPY ../ ./
 
 RUN CGO_ENABLED=1 go build -ldflags='-s -w -extldflags "-static"' -o scheduler ./scheduler.go
 

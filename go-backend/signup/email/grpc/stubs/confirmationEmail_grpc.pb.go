@@ -4,7 +4,7 @@
 // - protoc             v6.30.2
 // source: confirmationEmail.proto
 
-package generated
+package stubs
 
 import (
 	context "context"
