@@ -2,12 +2,12 @@ package main
 
 import (
 	"mentipedia/go-backend/db/sqlite"
+	"mentipedia/go-backend/email"
+	"mentipedia/go-backend/email/signup"
 	"mentipedia/go-backend/grpc"
 	"mentipedia/go-backend/process/shutdown"
-	baovault "mentipedia/go-backend/security/vault"
-	"mentipedia/go-backend/signup/email"
+	"mentipedia/go-backend/security/baovault"
 
-	_ "github.com/mattn/go-sqlite3"
 	"github.com/sirupsen/logrus"
 )
 
@@ -21,8 +21,9 @@ func main() {
 	sqliteCon := sqlite.MakeSqliteConnection()
 
 	baovault := baovault.MakeVault()
+	emailService := email.MakeEmailService(&baovault)
 
-	signupEmailService := email.MakeSignupEmailService(sqliteCon)
+	signupEmailService := signup.MakeSignupEmailService(sqliteCon, &emailService)
 	signupEmailService.RegisterGRPCService()
 
 	go signupEmailService.LoopSendEmailsToMaturedDeadlines()

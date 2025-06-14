@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-const GRPC_LISTEN_ADDRESS = "127.0.0.1:10000"
+const _GRPC_LISTEN_ADDRESS = "127.0.0.1:10000"
 
 var grpcServerRegistrar = grpc.NewServer()
 var tcpSocket net.Listener
@@ -30,7 +30,7 @@ func Serve() {
 
 func init() {
 	var err error
-	tcpSocket, err = net.Listen("tcp", GRPC_LISTEN_ADDRESS)
+	tcpSocket, err = net.Listen("tcp", _GRPC_LISTEN_ADDRESS)
 	if err != nil {
 		logging.LogErrorAndGracefulShutdown(logrus.WithField("", ""), err, "Could not make TCP socket for GRPC server")
 	}

@@ -3,8 +3,8 @@ package impl
 import (
 	"context"
 	"database/sql"
+	"mentipedia/go-backend/email/signup/grpc/stubs"
 	"mentipedia/go-backend/logging"
-	"mentipedia/go-backend/signup/email/grpc/stubs"
 	"regexp"
 
 	"github.com/sirupsen/logrus"

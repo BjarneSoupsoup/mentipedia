@@ -16,8 +16,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-const POLICIES_DIR = "./assets/baovault"
-const APP_ROLE_AUTH_NAME = "go-backend"
+const _POLICIES_DIR = "./assets/baovault"
+const _APP_ROLE_AUTH_NAME = "go-backend"
 
 var logger = logrus.WithField("unit", "baovault")
 
@@ -28,7 +28,7 @@ type BaoVault struct {
 // Key is the policy name, value is the file contents
 func readPolicyFiles() (res map[string]string) {
 	res = make(map[string]string)
-	filepath.WalkDir(POLICIES_DIR, func(path string, d fs.DirEntry, err error) error {
+	filepath.WalkDir(_POLICIES_DIR, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			logger.Error("Could not read Vault policies dir")
 			shutdown.GracefulShutdownStop()
@@ -53,7 +53,7 @@ func readPolicyFiles() (res map[string]string) {
 // this.client has to have prepared the token which is to be renewed itself (call client.SetToken())
 func (vault BaoVault) listenAutoRefreshToken(tokenSecret *vaultApi.Secret) {
 	if !tokenSecret.Auth.Renewable {
-		logger.WithField("approleName", APP_ROLE_AUTH_NAME).Error("approle gave a token which is not renewable. Backend cannot function properly")
+		logger.WithField("approleName", _APP_ROLE_AUTH_NAME).Error("approle gave a token which is not renewable. Backend cannot function properly")
 		shutdown.GracefulShutdownStop()
 	}
 
@@ -110,11 +110,11 @@ func (vault BaoVault) createPolicies(policyData map[string]string) {
 func (vault BaoVault) loginWithAppRole() (secret *vaultApi.Secret) {
 	var err error
 	// Fetch the role-id
-	secret, err = vault.client.Logical().Read(fmt.Sprintf("auth/approle/role/%s/role-id", APP_ROLE_AUTH_NAME))
+	secret, err = vault.client.Logical().Read(fmt.Sprintf("auth/approle/role/%s/role-id", _APP_ROLE_AUTH_NAME))
 	if secret == nil || secret.Data == nil {
 		logger.WithFields(logrus.Fields{
 			"error":       err,
-			"appRoleName": APP_ROLE_AUTH_NAME,
+			"appRoleName": _APP_ROLE_AUTH_NAME,
 		}).Error("Could not read role-id")
 		shutdown.GracefulShutdownStop()
 	}
@@ -123,11 +123,11 @@ func (vault BaoVault) loginWithAppRole() (secret *vaultApi.Secret) {
 	logger.WithField("appRoleId", appRoleId).Info("Succesfully created appRole auth")
 
 	// Generate a secret-id
-	secret, err = vault.client.Logical().Write(fmt.Sprintf("auth/approle/role/%s/secret-id", APP_ROLE_AUTH_NAME), nil)
+	secret, err = vault.client.Logical().Write(fmt.Sprintf("auth/approle/role/%s/secret-id", _APP_ROLE_AUTH_NAME), nil)
 	if err != nil || secret == nil || secret.Data == nil {
 		logger.WithFields(logrus.Fields{
 			"error":       err,
-			"appRoleName": APP_ROLE_AUTH_NAME,
+			"appRoleName": _APP_ROLE_AUTH_NAME,
 		}).Error("Could not read secret-id")
 		shutdown.GracefulShutdownStop()
 	}
@@ -188,7 +188,7 @@ func MakeVault() (newVault BaoVault) {
 	newVault.createPolicies(policyData)
 	// Make actual auth method for the server. The server cannot use the admin token because it's not refresheable and
 	// it's quite short lived. This is done intentionally, as a security measure. It's, effectively a downgrade in privileges.
-	_, err = newVault.client.Logical().Write(fmt.Sprintf("auth/approle/role/%s", APP_ROLE_AUTH_NAME), map[string]any{
+	_, err = newVault.client.Logical().Write(fmt.Sprintf("auth/approle/role/%s", _APP_ROLE_AUTH_NAME), map[string]any{
 		// This auth endpoint will actually only be used once, for getting the first token. Further tokens will be re-fetched,
 		// because they are refresheable
 		"secret_id_num_uses": 1,

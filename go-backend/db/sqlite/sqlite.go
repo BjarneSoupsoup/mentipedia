@@ -6,6 +6,7 @@ import (
 	"mentipedia/go-backend/process/shutdown"
 	"os"
 
+	_ "github.com/mattn/go-sqlite3"
 	"github.com/sirupsen/logrus"
 )
 

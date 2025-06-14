@@ -1,10 +1,11 @@
-package email
+package signup
 
 import (
 	"database/sql"
+	"mentipedia/go-backend/email"
+	"mentipedia/go-backend/email/signup/grpc/impl"
+	"mentipedia/go-backend/email/signup/grpc/stubs"
 	"mentipedia/go-backend/grpc"
-	"mentipedia/go-backend/signup/email/grpc/impl"
-	"mentipedia/go-backend/signup/email/grpc/stubs"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -15,11 +16,13 @@ const _POLL_TIME_MINUTES = 5
 var logger = logrus.WithField("unit", "signupEmailService")
 
 type signupEmailService struct {
-	sqliteCon *sql.DB
+	sqliteCon    *sql.DB
+	emailService *email.EmailService
 }
 
-func MakeSignupEmailService(dbCon *sql.DB) (service signupEmailService) {
+func MakeSignupEmailService(dbCon *sql.DB, emailService *email.EmailService) (service signupEmailService) {
 	service.sqliteCon = dbCon
+	service.emailService = emailService
 	return
 }
 
@@ -35,7 +38,7 @@ func (service signupEmailService) LoopSendEmailsToMaturedDeadlines() {
 		select {
 		case <-ticker.C:
 			for _, email := range service.checkEmailsWithMaturedDeadline() {
-
+				service.emailService.SendEmail()
 			}
 		}
 	}
