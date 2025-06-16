@@ -1,3 +1,5 @@
+//go:generate protoc --go_out=../stubs --go_opt=paths=source_relative --go-grpc_out=../stubs --go-grpc_opt=paths=source_relative -I ../../../../../common/interface confirmationEmail.proto
+
 package impl
 
 import (
@@ -24,7 +26,6 @@ func init() {
 	}
 }
 
-//go:generate protoc --go_out=../stubs --go_opt=paths=source_relative --go-grpc_out=../stubs --go-grpc_opt=paths=source_relative -I ../../../../../common/interface confirmationEmail.proto
 type GrpcSignupEmailService struct {
 	stubs.UnimplementedSignupConfirmationEmailServiceServer
 	sqliteDBCon *sql.DB
@@ -42,15 +43,15 @@ func (service GrpcSignupEmailService) RegisterSignupConfirmationEmail(_ context.
 		return
 	}
 	_, err = service.sqliteDBCon.Exec(
-		"INSERT INTO MentirologoConfirmationMailRequests(examSubmissionTimestamp, deadlineTimestamp, email) VALUES ($1, $2, $3)",
-		req.ExamSubmissionDate, req.DeadlineTimestampSeconds, req.Email,
+		"INSERT INTO MentirologoConfirmationMailRequests(deadlineTimestamp, email, mentirologoName) VALUES ($1, $2, $3)",
+		req.DeadlineTimestampSeconds, req.Email, req.MentirologoName,
 	)
 	if err != nil {
 		logger.WithFields(logrus.Fields{
 			"error":                    err,
-			"ExamSubmissionDate":       req.ExamSubmissionDate,
 			"DeadlineTimestampSeconds": req.DeadlineTimestampSeconds,
 			"Email":                    req.Email,
+			"MentirologoName":          req.MentirologoName,
 		}).Error("Could not store request for future signup email")
 		return
 	}

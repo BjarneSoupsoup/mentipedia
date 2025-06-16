@@ -2,12 +2,13 @@ syntax = "proto3";
 
 package scheduler;
 
-option go_package = "mentipedia/go-backend/signup/email/generated"; 
+option go_package = "mentipedia/go-backend/email/signup/grpc/stubs"; 
 
 message SignupConfirmationEmailRequest {
     string email = 1;
+    string mentirologo_name = 2;
     // When the email will be sent, in seconds since Unix epoch
-    uint64 deadline_timestamp_seconds = 2;
+    uint64 deadline_timestamp_seconds = 3;
 }
 
 message EmptyMsg { }

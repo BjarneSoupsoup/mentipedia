@@ -31,7 +31,7 @@ func readPolicyFiles() (res map[string]string) {
 	filepath.WalkDir(_POLICIES_DIR, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			logger.Error("Could not read Vault policies dir")
-			shutdown.GracefulShutdownStop()
+			shutdown.GracefulShutdownStop(1)
 		}
 		if !d.IsDir() && strings.HasSuffix(d.Name(), ".hcl") {
 			readBytes, readErr := os.ReadFile(path)
@@ -40,7 +40,7 @@ func readPolicyFiles() (res map[string]string) {
 					"error":          readErr,
 					"policyFilepath": path,
 				}).Error("Could not read policy file")
-				shutdown.GracefulShutdownStop()
+				shutdown.GracefulShutdownStop(1)
 			}
 			res[strings.Replace(d.Name(), ".hcl", "", 1)] = string(readBytes)
 		}
@@ -54,7 +54,7 @@ func readPolicyFiles() (res map[string]string) {
 func (vault BaoVault) listenAutoRefreshToken(tokenSecret *vaultApi.Secret) {
 	if !tokenSecret.Auth.Renewable {
 		logger.WithField("approleName", _APP_ROLE_AUTH_NAME).Error("approle gave a token which is not renewable. Backend cannot function properly")
-		shutdown.GracefulShutdownStop()
+		shutdown.GracefulShutdownStop(1)
 	}
 
 	watcher, err := vault.client.NewLifetimeWatcher(&vaultApi.LifetimeWatcherInput{
@@ -62,7 +62,7 @@ func (vault BaoVault) listenAutoRefreshToken(tokenSecret *vaultApi.Secret) {
 	})
 	if err != nil {
 		logger.WithField("error", err).Error("Error while requesting token watcher")
-		shutdown.GracefulShutdownStop()
+		shutdown.GracefulShutdownStop(1)
 	}
 
 	go watcher.Start()
@@ -84,7 +84,7 @@ func makeVaultClient() *vaultApi.Client {
 	config.Address = os.Getenv("BAOVAULT_ORIGIN")
 	if config.Address == "" {
 		logger.Error("BAOVAULT_ORIGIN was missing")
-		shutdown.GracefulShutdownStop()
+		shutdown.GracefulShutdownStop(1)
 	}
 	newClient, err := vaultApi.NewClient(config)
 	if err != nil {
@@ -101,7 +101,7 @@ func (vault BaoVault) createPolicies(policyData map[string]string) {
 				"policyName":   policyName,
 				"fileContents": fileContents,
 			}).Error("Could not create policy")
-			shutdown.GracefulShutdownStop()
+			shutdown.GracefulShutdownStop(1)
 		}
 	}
 }
@@ -116,7 +116,7 @@ func (vault BaoVault) loginWithAppRole() (secret *vaultApi.Secret) {
 			"error":       err,
 			"appRoleName": _APP_ROLE_AUTH_NAME,
 		}).Error("Could not read role-id")
-		shutdown.GracefulShutdownStop()
+		shutdown.GracefulShutdownStop(1)
 	}
 
 	appRoleId := secret.Data["role_id"]
@@ -129,7 +129,7 @@ func (vault BaoVault) loginWithAppRole() (secret *vaultApi.Secret) {
 			"error":       err,
 			"appRoleName": _APP_ROLE_AUTH_NAME,
 		}).Error("Could not read secret-id")
-		shutdown.GracefulShutdownStop()
+		shutdown.GracefulShutdownStop(1)
 	}
 	appRoleAuthSecretId := secret.Data["secret_id"]
 
@@ -144,14 +144,29 @@ func (vault BaoVault) loginWithAppRole() (secret *vaultApi.Secret) {
 	return
 }
 
-func (vault BaoVault) ReadSecret(path string) (secret *vaultApi.Secret, err error) {
-	secret, err = vault.client.Logical().Read(path)
-	return
+type ReadSecretValueNotFoundError struct{}
+
+func (e ReadSecretValueNotFoundError) Error() string {
+	return "Member 'value' was not present on the secret in the KV store"
 }
 
-// Writes can sometimes also return data (like secret_id)
-func (vault BaoVault) Write(path string, payload map[string]any) (secret *vaultApi.Secret, err error) {
-	secret, err = vault.client.Logical().Write(path, payload)
+func (vault BaoVault) ReadSecret(path secretPath) (res any, err error) {
+	secret, err := vault.client.Logical().Read(path.getPath())
+	if err != nil {
+		return
+	}
+	_, valueExists := secret.Data["value"]
+	if !valueExists {
+		return nil, ReadSecretValueNotFoundError{}
+	}
+	res = secret.Data["value"]
+	return res, nil
+}
+
+// Writes can sometimes also return data (like secret_id). However, this function will ignore it, for simplicity. It enforces
+// the member "value" to be the sole content of the secret.
+func (vault BaoVault) WriteSecret(path secretPath, value any) (err error) {
+	_, err = vault.client.Logical().Write(path.getPath(), map[string]any{"value": value})
 	return
 }
 
@@ -165,7 +180,7 @@ func MakeVault() (newVault BaoVault) {
 	adminVaultToken := os.Getenv("ADMIN_VAULT_TOKEN")
 	if adminVaultToken == "" {
 		logger.Error("ADMIN_VAULT_TOKEN was not set")
-		shutdown.GracefulShutdownStop()
+		shutdown.GracefulShutdownStop(1)
 	}
 	newVault.client.SetToken(adminVaultToken)
 	logger.Info("Starting baovault setup ...")
@@ -179,6 +194,12 @@ func MakeVault() (newVault BaoVault) {
 	err = newVault.client.Sys().Mount("kv", &vaultApi.MountInput{Type: "kv", Options: map[string]string{"version": "1"}})
 	if err != nil {
 		logging.LogErrorAndGracefulShutdown(logger, err, "Could not enable key-value store")
+	}
+
+	// Enables cryptography as a service, which comes in handy for encrypting and authenticating messages
+	err = newVault.client.Sys().Mount("transit", &vaultApi.MountInput{Type: "transit"})
+	if err != nil {
+		logging.LogErrorAndGracefulShutdown(logger, err, "Could not enable transit secret engine")
 	}
 
 	// Make policies

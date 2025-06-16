@@ -5,7 +5,6 @@ import (
 	"mentipedia/go-backend/email"
 	"mentipedia/go-backend/email/signup"
 	"mentipedia/go-backend/grpc"
-	"mentipedia/go-backend/process/shutdown"
 	"mentipedia/go-backend/security/baovault"
 
 	"github.com/sirupsen/logrus"
@@ -16,18 +15,19 @@ func init() {
 }
 
 func main() {
-	defer shutdown.GracefulShutdownStop()
-
 	sqliteCon := sqlite.MakeSqliteConnection()
 
 	baovault := baovault.MakeVault()
+	// This line is effectively a no-op when go is built with the flag dev
+	baovault.Seed()
 	emailService := email.MakeEmailService(&baovault)
 
 	signupEmailService := signup.MakeSignupEmailService(sqliteCon, &emailService)
-	signupEmailService.RegisterGRPCService()
+	if signupEmailService != nil {
+		signupEmailService.RegisterGRPCService()
+		go signupEmailService.LoopSendEmailsToMaturedDeadlines()
+	}
 
-	go signupEmailService.LoopSendEmailsToMaturedDeadlines()
-
-	grpc.Serve()
+	go grpc.Serve()
 	select {}
 }

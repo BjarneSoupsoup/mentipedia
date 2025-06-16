@@ -1,3 +1,4 @@
 storage
 .vscode
 *.code-workspace
+dev_secrets.fish

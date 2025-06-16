@@ -1,3 +1,3 @@
-path "secret/data/gmail/token" {
+path "secret/gmail/token" {
   capabilities = ["read"]
 }

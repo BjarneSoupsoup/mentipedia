@@ -10,5 +10,5 @@ import (
 
 func LogErrorAndGracefulShutdown(logEntry *logrus.Entry, err error, msg string) {
 	logEntry.WithField("error", err).Error(msg)
-	shutdown.GracefulShutdownStop()
+	shutdown.GracefulShutdownStop(1)
 }

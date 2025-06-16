@@ -69,7 +69,7 @@ export default function Navbar() {
         <div className="flex flex-row justify-start items-center w-8/9 gap-2">
             <div className={`flex flex-row justify-items-start items-center flex-5 ${enlargedModeActive ? 'hidden' : ''}`}>
                 <div className="pb-2 pt-2 text-sm">
-                    <Link href="/altaMentirologo">
+                    <Link href="/altaMentirologo/examen">
                         Date de alta como mentirólogo
                     </Link>
                 </div>

@@ -22,14 +22,13 @@ const (
 )
 
 type SignupConfirmationEmailRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	Email string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Email           string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	MentirologoName string                 `protobuf:"bytes,2,opt,name=mentirologo_name,json=mentirologoName,proto3" json:"mentirologo_name,omitempty"`
 	// When the email will be sent, in seconds since Unix epoch
-	DeadlineTimestampSeconds uint64 `protobuf:"varint,2,opt,name=deadline_timestamp_seconds,json=deadlineTimestampSeconds,proto3" json:"deadline_timestamp_seconds,omitempty"`
-	// When did the server acknowledge the exam was properly submitted (without errors)
-	ExamSubmissionDate uint64 `protobuf:"varint,3,opt,name=exam_submission_date,json=examSubmissionDate,proto3" json:"exam_submission_date,omitempty"`
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	DeadlineTimestampSeconds uint64 `protobuf:"varint,3,opt,name=deadline_timestamp_seconds,json=deadlineTimestampSeconds,proto3" json:"deadline_timestamp_seconds,omitempty"`
+	unknownFields            protoimpl.UnknownFields
+	sizeCache                protoimpl.SizeCache
 }
 
 func (x *SignupConfirmationEmailRequest) Reset() {
@@ -69,16 +68,16 @@ func (x *SignupConfirmationEmailRequest) GetEmail() string {
 	return ""
 }
 
+func (x *SignupConfirmationEmailRequest) GetMentirologoName() string {
+	if x != nil {
+		return x.MentirologoName
+	}
+	return ""
+}
+
 func (x *SignupConfirmationEmailRequest) GetDeadlineTimestampSeconds() uint64 {
 	if x != nil {
 		return x.DeadlineTimestampSeconds
-	}
-	return 0
-}
-
-func (x *SignupConfirmationEmailRequest) GetExamSubmissionDate() uint64 {
-	if x != nil {
-		return x.ExamSubmissionDate
 	}
 	return 0
 }
@@ -123,15 +122,15 @@ var File_confirmationEmail_proto protoreflect.FileDescriptor
 
 const file_confirmationEmail_proto_rawDesc = "" +
 	"\n" +
-	"\x17confirmationEmail.proto\x12\tscheduler\"\xa6\x01\n" +
+	"\x17confirmationEmail.proto\x12\tscheduler\"\x9f\x01\n" +
 	"\x1eSignupConfirmationEmailRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\x12<\n" +
-	"\x1adeadline_timestamp_seconds\x18\x02 \x01(\x04R\x18deadlineTimestampSeconds\x120\n" +
-	"\x14exam_submission_date\x18\x03 \x01(\x04R\x12examSubmissionDate\"\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\x12)\n" +
+	"\x10mentirologo_name\x18\x02 \x01(\tR\x0fmentirologoName\x12<\n" +
+	"\x1adeadline_timestamp_seconds\x18\x03 \x01(\x04R\x18deadlineTimestampSeconds\"\n" +
 	"\n" +
 	"\bEmptyMsg2\x83\x01\n" +
 	"\x1eSignupConfirmationEmailService\x12a\n" +
-	"\x1fRegisterSignupConfirmationEmail\x12).scheduler.SignupConfirmationEmailRequest\x1a\x13.scheduler.EmptyMsgB/Z-mentipedia/go-backend/signup/email/grpc/stubsb\x06proto3"
+	"\x1fRegisterSignupConfirmationEmail\x12).scheduler.SignupConfirmationEmailRequest\x1a\x13.scheduler.EmptyMsgB/Z-mentipedia/go-backend/email/signup/grpc/stubsb\x06proto3"
 
 var (
 	file_confirmationEmail_proto_rawDescOnce sync.Once

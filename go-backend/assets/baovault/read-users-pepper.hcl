@@ -1,3 +1,3 @@
-path "secret/data/users/db/pepper" {
+path "secret/users/db/pepper" {
   capabilities = ["read"]
 }
