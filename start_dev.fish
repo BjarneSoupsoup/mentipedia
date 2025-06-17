@@ -17,6 +17,7 @@ set -x GMAIL_SENDER_ADDRESS mentipedia.notify@gmail.com
 set -x GMAIL_SENDER_NAME Mentipedia
 # For redirects from email message to site
 set -x FORUM_DOMAIN_ORIGIN http://localhost:10001
+set -x PGSQL_CONNECTION_STRING postgresql://mentipedia_pgsql_test_dev:mentipedia@postgresdb/mentipedia?connect_timeout=60
 
 
 docker compose --file ./docker-compose/dev.yaml up --build

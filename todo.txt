@@ -1,7 +1,9 @@
 - Backend:
-    - 
+    - Remove sqlite DB, unify with postgres.
+    - signupEmail mentirologo should check that the user is not already registered
 - Create mentirologo feature:
     - Exam for sign up
+        -> should check email + user are not registered already
     - Exam validation
     - Session management
     - Add mentiras

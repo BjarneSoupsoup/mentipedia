@@ -146,3 +146,11 @@ CREATE TABLE IF NOT EXISTS FuentesMentira (
     UNIQUE (texto, hyperlink)
 );
 CREATE INDEX IF NOT EXISTS fuente_mentira_mentira_id_idx ON FuentesMentira USING HASH(mentira_id);
+
+CREATE TABLE IF NOT EXISTS Mentirologos (
+    id                      SERIAL          PRIMARY KEY,
+    email                   VARCHAR(1024)   NOT NULL,
+    mentirologo_name        VARCHAR(1024)   NOT NULL,
+    exam_finish_date        TIMESTAMPTZ     NOT NULL,
+    signup_email_was_sent   BOOLEAN         DEFAULT FALSE NOT NULL
+);
