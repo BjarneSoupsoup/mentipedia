@@ -13,13 +13,13 @@ func (vault BaoVault) writeGmailApiTokens() {
 	if os.Getenv("GMAIL_API_PARENT_CONFIG") == "" {
 		logger.Warn("Gmail API parent config not present. Not writing it to vault. It can be fetched from the Google Developer Console, under Gmail API > Clients > Oauth ClientIDs")
 	} else {
-		vault.WriteSecret(GMAIL_API_PARENT_CONFIG_SECRET_PATH{}, os.Getenv("GMAIL_API_PARENT_CONFIG"))
+		vault.WriteSecret(GMAIL_API_PARENT_CONFIG_SECRET_PATH, os.Getenv("GMAIL_API_PARENT_CONFIG"))
 	}
 
 	if os.Getenv("GMAIL_API_OAUTH_TOKEN") == "" {
 		logger.Warn("Gmail API parent config not present. Not writing it to vault. It can be generated with the mentipedia tool gmail-oauth-token-fetcher")
 	} else {
-		vault.WriteSecret(GMAIL_API_OAUTH_TOKEN_SECRET_PATH{}, os.Getenv("GMAIL_API_OAUTH_TOKEN"))
+		vault.WriteSecret(GMAIL_API_OAUTH_TOKEN_SECRET_PATH, os.Getenv("GMAIL_API_OAUTH_TOKEN"))
 	}
 }
 
@@ -34,7 +34,7 @@ func (vault BaoVault) Seed() {
 		// Even in DEV mode, the password pepper has to be present
 		logrus.Fatal("USER_DB_PASSWORD_PEPPER not present. Shutting down ...")
 	} else {
-		err = vault.WriteSecret(USER_DB_PASSWORD_PEPPER_SECRET_PATH{}, os.Getenv("USER_DB_PASSWORD_PEPPER"))
+		err = vault.WriteSecret(USER_DB_PASSWORD_PEPPER_SECRET_PATH, os.Getenv("USER_DB_PASSWORD_PEPPER"))
 		if err != nil {
 			logging.LogErrorAndGracefulShutdown(logger, err, "Could not insert password pepper into vault")
 		}

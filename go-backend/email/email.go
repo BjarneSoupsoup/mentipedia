@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"mentipedia/go-backend/security/baovault"
 	"net/mail"
 	"os"
@@ -28,7 +29,7 @@ type EmailService struct {
 }
 
 func fetchOauthConfig(vault *baovault.BaoVault) (config *oauth2.Config) {
-	secretData, err := vault.ReadSecret(baovault.GMAIL_API_PARENT_CONFIG_SECRET_PATH{})
+	secretData, err := vault.ReadSecret(baovault.GMAIL_API_PARENT_CONFIG_SECRET_PATH)
 
 	if err != nil || secretData == nil {
 		logger.WithField("error", err).Warning("Could not read gmail api parent config.")
@@ -44,7 +45,7 @@ func fetchOauthConfig(vault *baovault.BaoVault) (config *oauth2.Config) {
 }
 
 func fetchOauthToken(vault *baovault.BaoVault) *oauth2.Token {
-	secretData, err := vault.ReadSecret(baovault.GMAIL_API_OAUTH_TOKEN_SECRET_PATH{})
+	secretData, err := vault.ReadSecret(baovault.GMAIL_API_OAUTH_TOKEN_SECRET_PATH)
 
 	if err != nil || secretData == nil {
 		logger.WithField("error", err).Warning("Could not read gmail api oauth token.")
@@ -140,20 +141,22 @@ func (service EmailService) makeEmailString(recipientAddress string, recipientNa
 	return
 }
 
-// This routine may fail silently. However, there wouldn't be any flow for handling the error, neither.
-func (service EmailService) SendEmail(recipientAddress string, recipientName string, body string) {
+func (service EmailService) SendEmail(recipientAddress string, recipientName string, body string) (err error) {
 	if service.gmailService == nil {
-		logger.Warn("Gmail API secret was not configured. Email cannot be sent")
-		return
+		return errors.New("Gmail API secret was not configured")
 	}
 	response, err := service.gmailService.Users.Messages.Send("me", &gmail.Message{
 		Raw: base64.URLEncoding.EncodeToString([]byte(service.makeEmailString(recipientAddress, recipientName, body))),
 	}).Do()
 	if err != nil {
 		resJson, _ := response.Payload.MarshalJSON()
-		logger.WithFields(logrus.Fields{
-			"error":    err,
-			"response": string(resJson),
-		}).Error("Could not send email Gmail API error")
+		errorJson, _ := json.Marshal(map[string]any{
+			"gmailAPIError": map[string]any{
+				"error":    err.Error(),
+				"response": resJson,
+			},
+		})
+		return errors.New(string(errorJson))
 	}
+	return
 }

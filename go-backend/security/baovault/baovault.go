@@ -8,6 +8,7 @@ import (
 	"maps"
 	"mentipedia/go-backend/logging"
 	"mentipedia/go-backend/process/shutdown"
+	"mentipedia/go-backend/security/baovault/engines/transit"
 	"os"
 	"path/filepath"
 	"strings"
@@ -22,7 +23,8 @@ const _APP_ROLE_AUTH_NAME = "go-backend"
 var logger = logrus.WithField("unit", "baovault")
 
 type BaoVault struct {
-	client *vaultApi.Client
+	TransitEngine transit.Engine
+	client        *vaultApi.Client
 }
 
 // Key is the policy name, value is the file contents
@@ -50,8 +52,8 @@ func readPolicyFiles() (res map[string]string) {
 }
 
 // This function is blocking.
-// this.client has to have prepared the token which is to be renewed itself (call client.SetToken())
-func (vault BaoVault) listenAutoRefreshToken(tokenSecret *vaultApi.Secret) {
+// vault.client has to have prepared the token which is to be renewed itself (call client.SetToken())
+func (vault BaoVault) autoRefreshToken(tokenSecret *vaultApi.Secret) {
 	if !tokenSecret.Auth.Renewable {
 		logger.WithField("approleName", _APP_ROLE_AUTH_NAME).Error("approle gave a token which is not renewable. Backend cannot function properly")
 		shutdown.GracefulShutdownStop(1)
@@ -151,7 +153,7 @@ func (e ReadSecretValueNotFoundError) Error() string {
 }
 
 func (vault BaoVault) ReadSecret(path secretPath) (res any, err error) {
-	secret, err := vault.client.Logical().Read(path.getPath())
+	secret, err := vault.client.Logical().Read(string(path))
 	if err != nil {
 		return
 	}
@@ -166,16 +168,12 @@ func (vault BaoVault) ReadSecret(path secretPath) (res any, err error) {
 // Writes can sometimes also return data (like secret_id). However, this function will ignore it, for simplicity. It enforces
 // the member "value" to be the sole content of the secret.
 func (vault BaoVault) WriteSecret(path secretPath, value any) (err error) {
-	_, err = vault.client.Logical().Write(path.getPath(), map[string]any{"value": value})
+	_, err = vault.client.Logical().Write(string(path), map[string]any{"value": value})
 	return
 }
 
-// Sets up features, policies and auth methods. Requires a (very short lived) token with high privileges set as env variable (ADMIN_VAULT_TOKEN)
-func MakeVault() (newVault BaoVault) {
+func (newVault *BaoVault) initVault() {
 	var err error
-
-	newVault.client = makeVaultClient()
-
 	// To be injected at CI time
 	adminVaultToken := os.Getenv("ADMIN_VAULT_TOKEN")
 	if adminVaultToken == "" {
@@ -230,9 +228,16 @@ func MakeVault() (newVault BaoVault) {
 	// This token will be refreshed automatically
 	firstTokenSecret := newVault.loginWithAppRole()
 	newVault.client.SetToken(firstTokenSecret.Auth.ClientToken)
-	go newVault.listenAutoRefreshToken(firstTokenSecret)
+	go newVault.autoRefreshToken(firstTokenSecret)
 
 	logger.Info("Finished baovault setup! Client will refresh the token before expiry asynchronously")
+}
+
+// Sets up features, policies and auth methods. Requires a (very short lived) token with high privileges set as env variable (ADMIN_VAULT_TOKEN)
+func MakeVault() (newVault BaoVault) {
+	newVault.client = makeVaultClient()
+	newVault.initVault()
+	newVault.TransitEngine = transit.MakeEngine(newVault.client.Logical())
 
 	return
 }
