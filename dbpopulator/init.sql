@@ -151,6 +151,5 @@ CREATE TABLE IF NOT EXISTS Mentirologos (
     id                      SERIAL          PRIMARY KEY,
     email                   VARCHAR(1024)   NOT NULL,
     mentirologo_name        VARCHAR(1024)   NOT NULL,
-    exam_finish_date        TIMESTAMPTZ     NOT NULL,
-    signup_email_was_sent   BOOLEAN         DEFAULT FALSE NOT NULL
+    exam_finish_date        TIMESTAMPTZ     NOT NULL
 );

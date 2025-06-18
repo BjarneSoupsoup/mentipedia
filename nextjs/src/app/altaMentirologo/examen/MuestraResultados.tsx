@@ -10,8 +10,8 @@ export function MuestraResultados(props: MuestraResultadosPropsType) {
             <section className="w-3/4 mt-5 border-1 p-1 flex flex-col gap-2 items-start">
                 <p> Ha completado el examen satisfactoriamente!</p>
                 <p>
-                    Gracias, {props.nombreMentirologo}, por tomarte la molestia de rellenar el formulario. Recibirá un correo electrónico con
-                    la información necesaria para completar su registro dentro de una semana en la dirección de correo 
+                    Gracias, {props.nombreMentirologo}, por tomarte la molestia de rellenar el formulario. En breves momentos recibirá un correo electrónico con
+                    la información necesaria para completar su registro en la dirección de correo 
                     que proveyó: <span className="italic">{props.emailMentirologo}</span>.
                 </p>
             </section>

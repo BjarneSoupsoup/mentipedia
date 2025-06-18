@@ -19,14 +19,14 @@ export default function Introduccion({ onClickRealizandoExamenButton }: { onClic
             </p>
             <p>
                 Una vez presentado el examen, será corregido automáticamente. El proceso de corrección es relativamente laxo. La mayoría de las preguntas aceptan
-                datos aproximados. Las respuestas que requieran redacción serán valoradas según su grado de similitud con la respuesta esperada, permitiendo un amplio
-                grado de variación. El propósito del examen no es certificar un alto grado de concomiento en ningún campo; simplemente sirve de excusa para forzar
+                datos aproximados. Las respuestas que requieran redacción serán valoradas según su grado de similitud con la respuesta esperada, permitiendo una gran 
+                holgura. El propósito del examen no es certificar un alto grado de concomiento en ningún campo; simplemente sirve de excusa para forzar
                 a los interesados en aportar contenido a ceder una minúscula parte de su tiempo. De esta manera se demuestra el grado de involucración del mentirólogo,
-                aunque sea mínimo.
+                aunque sea mínimo. Se puede aprobar aún respondiendo una pregunta de manera incorrecta.
             </p>
-            <p> Una vez corregido el examen se le notificará vía correo electrónico con el resultado. En caso de que sea apto, se le proveerán sus credenciales
-                de mentirólogo. La corrección es instantánea, pero <b>el resultado no se hará conocer hasta pasados siete días naturales desde la presentación del examen. </b>
-                Una vez más, esto se hace para corroborar que los usuarios tienen un mínimo grado de interés por la sensatez y el buen funcionamiento del portal web.
+            <p> Una vez corregido el examen se le enviará un correo electrónico para finalizar el alta. El proceso es instantáneo; sin embargo, <b>su nueva área de mentirólogo
+                se mantendrá inhabilitada (temporalmente) durante una semana</b>. Una vez más, esto se hace para corroborar que los usuarios tienen cierto sentido de la responsabilidad
+                y un mínimo grado de interés por el buen funcionamiento del portal web.
             </p>
 
             <div className="flex flex-row justify-center items-center w-full mt-5">

@@ -9,6 +9,11 @@ message SingupEmailTokenString {
     string token = 1;
 }
 
+message EmailRecipient {
+    string mentirologo_name = 1;
+    string mentirologo_email = 2;
+}
+
 message SignupEmailToken {
     int64  mentirologo_id = 1;
     string mentirologo = 2;
@@ -19,9 +24,8 @@ message SignupEmailToken {
 
 message EmptyMsg { }
 
-// This service will send an email at the specified time containing a secret signup link
 service SignupService {
-    
-    // This process is async by definition, there's no confirmation for when the email is eventually sent (if it is ever sent).
-    rpc DecodeAndVerify(SingupEmailTokenString) returns(SignupEmailToken);
+    rpc SendSignupEmail(EmailRecipient) returns(EmptyMsg);
+    // May return several errors if verification or unmarshalling fail
+    rpc DecodeAndVerifyToken(SingupEmailTokenString) returns(SignupEmailToken);
 }

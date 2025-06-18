@@ -13,3 +13,4 @@
 - Remake noses to fit the number of points in the Pinochometro ruler
 - Add nose position to portraits
 - Add proper styling for desktop viewport
+- Check license is embedded in all html and js chunks

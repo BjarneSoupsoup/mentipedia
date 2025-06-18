@@ -18,6 +18,7 @@ set -x GMAIL_SENDER_NAME Mentipedia
 # For redirects from email message to site
 set -x FORUM_DOMAIN_ORIGIN http://localhost:10001
 set -x PGSQL_CONNECTION_STRING postgresql://mentipedia_pgsql_test_dev:mentipedia@postgresdb/mentipedia?connect_timeout=60
+set -x BAO_ADDR http://0.0.0.0:8200
 
 
-docker compose --file ./docker-compose/dev.yaml up --build
+docker compose --file ./docker-compose/up.yaml up --build

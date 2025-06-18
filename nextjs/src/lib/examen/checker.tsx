@@ -4,6 +4,8 @@ import { log } from "../system"
 import { PREGUNTAS } from "./examen"
 import { RespuestaListaTextos, RespuestaNumerico, RespuestaT, RespuestaTexto } from "./types"
 
+const MAX_ALLOWED_WRONG_ANSWERS = 1
+
 interface checkResponseType {
     isOk: boolean,
     failureReason ?: string
@@ -92,7 +94,8 @@ export async function checkExam(_, formData: FormData): Promise<CheckExamRespons
 
     log({ level: "INFO", msg: { formData: formDataNonSensitive }, unit: "checkExamen"})
 
-    let allChecksOk = true    
+    let numOfWrongAnswers = 0
+    let passedExam = false
     try {
         // For each expected answer, look for it in the user request and check the validity
         PREGUNTAS.forEach((preguntaExamen, i) => {
@@ -103,17 +106,18 @@ export async function checkExam(_, formData: FormData): Promise<CheckExamRespons
             const checkResult = checkPregunta(preguntaExamen.respuesta, respuestaMentirologo)
             if (!checkResult.isOk) {
                 log({ level: "WARN", msg: { formData: formDataNonSensitive, errCode: "HANDLED_ERR_CHECK", errMsg: checkResult.failureReason }, unit: "checkExamen" })         
-                allChecksOk = false
+                numOfWrongAnswers++
             }
         })
+        passedExam = numOfWrongAnswers <= MAX_ALLOWED_WRONG_ANSWERS
     } catch (e) {
         log({ level: "WARN", msg: { formData: formDataNonSensitive, errCode: "UNHANDLED_ERR_CHECK", errMsg: e }, unit: "checkExamen" }) 
-        allChecksOk = false
+        passedExam = false
     }
 
-    if (allChecksOk) {
-        scheduleSendSignupEmail(formData.get("emailMentirologo")?.toString()!)
+    if (passedExam) {
+        log({ level: "INFO", msg: {"msg": "exam successfully passed all tests"}, unit: "checkExamen" })
     }
 
-    return { checkOk: allChecksOk, originalRequest: formData }
+    return { checkOk: passedExam, originalRequest: formData }
 }

@@ -53,14 +53,15 @@ services:
 
   # Centralized secret storage
   baovault:
-    build:
-      context: ../baovault
+    image: openbao/openbao:2.2
     ports:
       - "10005:8200"
     environment:
       - BAO_ADDR=${BAO_ADDR}
     networks:
       - vault_net
+    entrypoint: ["/bin/bao"]
+    command: ["server", "-dev", "-dev-listen-address=0.0.0.0:8200", "-dev-root-token-id=mentipedia"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8200/v1/sys/health"]
       interval: 1s
