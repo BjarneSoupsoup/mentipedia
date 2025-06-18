@@ -39,33 +39,6 @@ const nextConfig: NextConfig = {
       }
     ];
   },
-  async webpack(config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) {
-    if (!dev) {
-      const gplHeaderBanner = `/*!
-        Copyright (C) 2025 Jorge Donis
-  
-        This program is free software; you can redistribute it and/or
-        modify it under the terms of the GNU General Public License
-        as published by the Free Software Foundation; exactly version 2
-        of the License.
-  
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-      /`
-      
-      config.plugins.push(
-        new webpack.BannerPlugin({
-          banner: gplHeaderBanner,
-          raw: true,
-          entryOnly: false
-        })
-      )
-    }
-
-    return config
-  }
 };
 
 export default nextConfig;

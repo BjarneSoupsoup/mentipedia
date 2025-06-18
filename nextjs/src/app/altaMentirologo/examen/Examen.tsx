@@ -109,13 +109,16 @@ export default function Examen({ onSuccessfulExamenFinish }: { onSuccessfulExame
 
     const examForm = <Form 
             action={ checkExamFormAction } className="flex flex-col justify-start items-start gap-8">
-            <div className="text-xl flex flex-col w-60">
+            <div className="text-xl flex flex-col w-60 gap-5">
                 <div>
                     <p><b>Nombre del solicitante:</b></p>
                     <InputField 
                         name="nombreMentirologo" type="text" 
                     defaultValue={getDefaultValueBackFromOriginalRequest(originalRequest, "nombreMentirologo") } 
                     />
+                    <p className="text-xs text-gray-600">
+                        Este será su seudónimo público
+                    </p>
                 </div>
                 <div>
                     <p><b>Correo electrónico:</b></p>
@@ -124,7 +127,7 @@ export default function Examen({ onSuccessfulExamenFinish }: { onSuccessfulExame
                         defaultValue={getDefaultValueBackFromOriginalRequest(originalRequest, "emailMentirologo") } 
                     />
                 </div>
-            </div>g
+            </div>
             { PREGUNTAS.map((x, idx) => {return(
                 <div key={idx} className="flex flex-col gap-2">
                     <p> <b>{idx + 1}</b>º  { x.enunciado }: </p>
