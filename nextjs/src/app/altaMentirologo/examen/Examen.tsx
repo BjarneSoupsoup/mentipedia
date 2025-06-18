@@ -9,7 +9,7 @@ function InputField({ name, type, required = true, ...rest }: { name: string, ty
     return <input required={required} className="pl-1 border-1 border-black w-48" name={name} type={type} { ...rest }/>
 }
 
-function MultiTextField({ multiTextInputName, originalRequest }: { multiTextInputName: string, originalRequest: FormData }) {
+function MultiTextField({ multiTextInputName, originalRequest }: { multiTextInputName: string, originalRequest: FormData | undefined }) {
     const [ inputFields, setInputFields ] = useState<any[]>([])
     const lastInputIdx = useRef(0)
 
@@ -60,7 +60,7 @@ function MultiTextField({ multiTextInputName, originalRequest }: { multiTextInpu
     )
 }
 
-function getDefaultValueBackFromOriginalRequest(originalRequest: FormData, inputName: string): string {
+function getDefaultValueBackFromOriginalRequest(originalRequest: FormData | undefined, inputName: string): string {
     if (originalRequest) {
         const x = originalRequest.get(inputName)
         if (x) {
@@ -71,7 +71,7 @@ function getDefaultValueBackFromOriginalRequest(originalRequest: FormData, input
 }
 
 // Depending on the expected answer, render the input a way or another
-function renderPreguntaInput(pregunta_idx: number, respuesta: RespuestaT, originalRequest: FormData) {
+function renderPreguntaInput(pregunta_idx: number, respuesta: RespuestaT, originalRequest: FormData | undefined) {
     const inputName = `respuesta_${pregunta_idx}`
     const defaultValue = getDefaultValueBackFromOriginalRequest(originalRequest, inputName)
 
@@ -86,12 +86,13 @@ function renderPreguntaInput(pregunta_idx: number, respuesta: RespuestaT, origin
 
 export default function Examen({ onSuccessfulExamenFinish }: { onSuccessfulExamenFinish: (nombreMentirologo: string, emailMentirologo: string) => void }) {
     const [ checkExamFormState, checkExamFormAction ] = useActionState(checkExam, undefined)
+    const originalRequest = checkExamFormState === undefined ? undefined : checkExamFormState.originalRequest! as FormData
 
     useEffect(() => {
-        if (checkExamFormState?.checkOk! === true) {
+        if (checkExamFormState !== undefined && checkExamFormState.checkOk === true) {
             onSuccessfulExamenFinish(
-                checkExamFormState?.originalRequest?.get("nombreMentirologo")?.toString()!, 
-                checkExamFormState?.originalRequest?.get("emailMentirologo")?.toString()!
+                originalRequest!.get("nombreMentirologo")!.toString(), 
+                originalRequest!.get("emailMentirologo")!.toString()
             )
         }
     }, [checkExamFormState])
@@ -105,6 +106,7 @@ export default function Examen({ onSuccessfulExamenFinish }: { onSuccessfulExame
         </section>
     </div>
 
+
     const examForm = <Form 
             action={ checkExamFormAction } className="flex flex-col justify-start items-start gap-8">
             <div className="text-xl flex flex-col w-60">
@@ -112,21 +114,21 @@ export default function Examen({ onSuccessfulExamenFinish }: { onSuccessfulExame
                     <p><b>Nombre del solicitante:</b></p>
                     <InputField 
                         name="nombreMentirologo" type="text" 
-                        defaultValue={getDefaultValueBackFromOriginalRequest(checkExamFormState?.originalRequest!, "nombreMentirologo") } 
+                    defaultValue={getDefaultValueBackFromOriginalRequest(originalRequest, "nombreMentirologo") } 
                     />
                 </div>
                 <div>
                     <p><b>Correo electrónico:</b></p>
                     <InputField 
                         name="emailMentirologo" type="email"
-                        defaultValue={getDefaultValueBackFromOriginalRequest(checkExamFormState?.originalRequest!, "emailMentirologo") } 
+                        defaultValue={getDefaultValueBackFromOriginalRequest(originalRequest, "emailMentirologo") } 
                     />
                 </div>
-            </div>
+            </div>g
             { PREGUNTAS.map((x, idx) => {return(
                 <div key={idx} className="flex flex-col gap-2">
                     <p> <b>{idx + 1}</b>º  { x.enunciado }: </p>
-                    { renderPreguntaInput(idx, x.respuesta, checkExamFormState?.originalRequest!) }
+                    { renderPreguntaInput(idx, x.respuesta, originalRequest) }
                 </div>
             )}) }
             <div className="flex flex-col w-full items-center justify-start">

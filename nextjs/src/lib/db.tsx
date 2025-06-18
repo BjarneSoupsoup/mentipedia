@@ -40,7 +40,7 @@ function makePGSQLConnectionPool(): Pool {
 
 function getPGSQLPool() {
     if (!PGSQL_CONNECTION_POOL) {
-        return makePGSQLConnectionPool()
+        PGSQL_CONNECTION_POOL = makePGSQLConnectionPool()
     }
     return PGSQL_CONNECTION_POOL
 }
